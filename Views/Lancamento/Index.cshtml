@@ -1,0 +1,77 @@
+﻿@model List<Lancamento>
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title> - Lancamentos - </title>
+
+</head>
+
+<body>
+
+    <a asp-action="Create" asp-controller="Lancamento">Clique para criar um novo lancamento </a>
+
+    <h1> - List - </h1>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th> ID </th>
+                <th> Nome da categoria </th>
+                <th> Conta </th>
+                <th> Descricao </th>
+                <th> Valor </th>
+                <th> Creation date </th>
+
+                <th></th>
+
+            </tr>
+
+        </thead>
+
+        <!-- LISTING ALL ACCOUNTS -->
+        <tbody>
+
+            @foreach (Lancamento y in Model)
+            {
+
+                <tr>
+
+                    <th>@y.Id</th>
+
+                    <th>@y.Categoria.Nome</th>
+
+                    <th>@y.Conta.FirstName</th>
+
+                    <th>@y.Description</th>
+
+                    <th>@y.Valor</th>
+
+                    <th>@y.CreationDate</th>
+
+                    <th>
+
+                        <a asp-action="Remove" asp-controller="Lancamento" asp-route-id="@y.Id"> Delete </a>
+                        <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@y.Id"> Update </a>
+
+                    </th>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+</body>
+
+</html> 

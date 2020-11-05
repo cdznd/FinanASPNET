@@ -1,0 +1,74 @@
+﻿@model List<Categoria>
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title> - Categorias page - </title>
+
+</head>
+
+    <body>
+
+        <h1> - Categorias - </h1>
+   
+        <hr />
+
+        <p> To create a new category click in the link above.</p>
+        <a asp-action="Create" asp-controller="Categoria">Click here to create a new category</a>
+
+        //TODO list all categorys above
+
+        <h1> - LIST - </h1>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th> ID </th>
+                    <th> Nome </th>
+                    <th> N lancamentos </th>
+                    <th> Creation Date </th>
+
+                    <th></th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (Categoria y in Model)
+                {
+
+                    <tr>
+
+                        <th>@y.Id</th>
+                        <th>@y.Nome</th>
+                        <th> Sem lancamento na categoria ainda </th>
+                        <th>@y.CreationDate</th>
+                        
+                        <th>
+                            
+                            <a asp-action="Remove" asp-controller="Categoria" asp-route-id ="@y.Id"> Delete </a>
+                            <a asp-action="Update" asp-controller="Categoria" asp-route-id="@y.Id"> Update </a>
+
+                        </th>
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </body>
+
+</html>

@@ -1,0 +1,68 @@
+﻿@model Conta
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title> - Cadastro de conta - </title>
+
+    </head>
+
+    <body>
+
+        <h1> - Cadastrar conta - </h1>
+
+        <!-- REGISTER FORM -->
+        <form asp-controller="Conta" asp-action="Create" method="post">
+
+            <fieldset>
+
+                <!-- Validation Errors -->
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <legend> Register </legend>
+
+                <!-- FIRST NAME -->
+                <label asp-for="FirstName"> Name </label>
+                <input asp-for="FirstName" type="text" placeholder="First name" />
+
+                <hr/>
+
+                <span asp-validation-for="FirstName"></span>
+
+                <hr/>
+
+                <!-- SECOND NAME -->
+                <label asp-for="SecondName"> Second name </label>
+                <input asp-for="SecondName" type="text" placeholder="Second name" />
+
+                <hr/>
+
+                <span asp-validation-for="SecondName"></span>
+
+                <hr />
+
+                <!-- CPF -->
+                <label asp-for="Cpf"> Cpf </label>
+                <input asp-for="Cpf" type="text" placeholder="CPF" />
+            
+                <hr/>
+
+                <span asp-validation-for="Cpf"></span>
+
+                <hr />
+
+                <!-- SUBMIT -->
+                <input type="submit" value="Cadastrar" />
+
+            </fieldset>
+
+        </form>
+
+    </body>
+
+</html> 

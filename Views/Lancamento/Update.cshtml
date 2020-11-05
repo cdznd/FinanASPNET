@@ -1,0 +1,80 @@
+﻿@{
+
+    List<Conta> Contas = ViewBag.Contas;
+    List<Categoria> Categorias = ViewBag.Categorias;
+
+}
+
+@model Lancamento
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title> - Atualizacao de lancamento - </title>
+
+</head>
+
+<body>
+
+    <h1> - Atualizar lancamento - </h1>
+
+    <!-- REGISTER FORM -->
+    <form asp-controller="Lancamento" asp-action="Update" method="post">
+
+        <fieldset>
+
+            <!-- Validation Errors -->
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <legend> Register </legend>
+
+            <!-- SELECT CONTA -->
+            <select asp-for="ContaId">
+
+                @foreach (Conta x in Contas)
+                {
+
+                    <option value="@x.Id"> @x.FirstName </option>
+
+                }
+
+            </select>
+
+            <!-- SELECT CATEGORIA -->
+            <select asp-for="CategoriaId">
+
+                @foreach (Categoria x in Categorias)
+                {
+
+                    <option value="@x.Id"> @x.Nome </option>
+
+                }
+
+            </select>
+
+            <!-- Descricao -->
+            <label asp-for="Description">Descricao</label>
+            <input asp-for="Description" type="text" placeholder="Descricao" />
+
+            <hr />
+
+            <label asp-for="Valor"> Valor </label>
+            <input asp-for="Valor" type="text" placeholder="Valor" />
+
+            <span asp-validation-for="Description"></span>
+
+            <!-- SUBMIT -->
+            <input type="submit" value="Atualizar lancamento" />
+
+        </fieldset>
+
+    </form>
+
+</body>
+
+</html> 
