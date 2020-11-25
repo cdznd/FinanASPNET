@@ -3,25 +3,15 @@
     List<Conta> Contas = ViewBag.Contas;
     List<Categoria> Categorias = ViewBag.Categorias;
 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 @model Lancamento
 
-<!DOCTYPE html>
+<div class="container">
 
-<html lang="pt-br">
-
-<head>
-
-    <meta charset="utf-8">
-
-    <title> - Atualizacao de lancamento - </title>
-
-</head>
-
-<body>
-
-    <h1> - Atualizar lancamento - </h1>
+    <h1 class="display-3">Atualizar lancamento</h1>
 
     <!-- REGISTER FORM -->
     <form asp-controller="Lancamento" asp-action="Update" method="post">
@@ -33,48 +23,67 @@
 
             <legend> Register </legend>
 
-            <!-- SELECT CONTA -->
-            <select asp-for="ContaId">
+            <!-- Conta -->
+            <div class="form-group">
 
-                @foreach (Conta x in Contas)
-                {
+                <label asp-for="ContaId">Conta</label>
 
-                    <option value="@x.Id"> @x.FirstName </option>
+                <!-- SELECT CONTA -->
+                <select asp-for="ContaId" class="form-control">
 
-                }
+                    @foreach (Conta x in Contas)
+                    {
 
-            </select>
+                        <option value="@x.Id"> @x.FirstName </option>
 
-            <!-- SELECT CATEGORIA -->
-            <select asp-for="CategoriaId">
+                    }
 
-                @foreach (Categoria x in Categorias)
-                {
+                </select>
 
-                    <option value="@x.Id"> @x.Nome </option>
+            </div>
 
-                }
+            <!-- Categoria -->
+            <div class="form-group">
 
-            </select>
+                <label asp-for="CategoriaId">Categoria</label>
 
-            <!-- Descricao -->
-            <label asp-for="Description">Descricao</label>
-            <input asp-for="Description" type="text" placeholder="Descricao" />
+                <select asp-for="CategoriaId" class="form-control">
 
-            <hr />
+                    @foreach (Categoria x in Categorias)
+                    {
 
-            <label asp-for="Valor"> Valor </label>
-            <input asp-for="Valor" type="text" placeholder="Valor" />
+                        <option value="@x.Id"> @x.Nome </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <!-- Descrição -->
+            <div class="form-group">
+
+                <!-- Descricao -->
+                <label asp-for="Description">Descricao</label>
+                <input asp-for="Description" type="text" placeholder="Descricao" class="form-control" />
+
+            </div>
+
+            <!-- Valor -->
+            <div class="form-group">
+
+                <label asp-for="Valor"> Valor </label>
+                <input asp-for="Valor" type="text" placeholder="Valor" class="form-control" />
+
+            </div>
 
             <span asp-validation-for="Description"></span>
 
             <!-- SUBMIT -->
-            <input type="submit" value="Atualizar lancamento" />
+            <input type="submit" value="Atualizar lancamento" class="btn btn-primary" />
 
         </fieldset>
 
     </form>
 
-</body>
-
-</html> 
+</div>

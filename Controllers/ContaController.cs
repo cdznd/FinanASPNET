@@ -11,22 +11,17 @@ namespace FinanCWebMaster.Controllers
     public class ContaController : Controller
     {
         
-        //DAO
         private readonly ContaDAO _ContaDAO;
 
-        //Constructor
         public ContaController(ContaDAO contaDAO) => _ContaDAO = contaDAO;
 
         public IActionResult Index()
         {
 
             List<Conta> Contas = _ContaDAO.List();
-            
-            //ViewBags
-            //ViewBag.Contas = Contas;
-            //ViewBag.Quantidade = Contas.Count;
 
-            //Return to the Index view with the ViewBags.
+            ViewBag.Title = "Contas";
+
             return View(Contas);
 
         }
@@ -36,39 +31,10 @@ namespace FinanCWebMaster.Controllers
 
         //CREATE
         [HttpPost]
-        /*
-        public IActionResult Create(string firstNameTxt, string secondNameTxt, string cpfTxt)
-        {
-
-            Conta x = new Conta
-            {
-
-                FirstName = firstNameTxt,
-                SecondName = secondNameTxt,
-                Cpf = cpfTxt
-
-            };
-
-            //Validation
-            if (_ContaDAO.Create(x))
-            {
-
-                return RedirectToAction("Index", "Conta");
-
-            }
-
-            ModelState.AddModelError("", "Cpf ja existe");
-            return View();
-
-        }
-        */
-
-        //CREATE
-        [HttpPost]
-        public IActionResult Create(Conta x)
+        public IActionResult Create(Conta conta)
         {
            
-            if (!TryValidateModel(x))
+            if (!TryValidateModel(conta))
             {
 
 
@@ -78,7 +44,7 @@ namespace FinanCWebMaster.Controllers
             }
 
             //Validation
-            if (_ContaDAO.Create(x))
+            if (_ContaDAO.Create(conta))
             {
 
                 return RedirectToAction("Index", "Conta");
@@ -102,48 +68,25 @@ namespace FinanCWebMaster.Controllers
 
         }
 
-        /*
         //UPDATE
         [HttpPost]
-        public IActionResult Update(int Id, string firstNameTxt, string secondNameTxt, string cpfTxt)
-        {
-
-            //LIST BY ID TO FIND THE CONTA TO UPDATE
-            Conta x = _ContaDAO.ListById(Id);
-
-            //UPDATING THE ACCOUNT
-            x.FirstName = firstNameTxt;
-            x.SecondName = secondNameTxt;
-            x.Cpf = cpfTxt;
-
-            //UPDATE
-            _ContaDAO.Update(x);            
-
-            return RedirectToAction("Index", "Conta");
-
-        }
-        */
-
-        //UPDATE
-        [HttpPost]
-        public IActionResult Update(Conta x)
+        public IActionResult Update(Conta conta)
         {
 
             //UPDATE
-            _ContaDAO.Update(x);
+            _ContaDAO.Update(conta);
 
             return RedirectToAction("Index", "Conta");
 
         }
 
-        public IActionResult Remove(int id)
+        public IActionResult Delete(int id)
         {
 
-            //LIST BY ID TO FIND THE CONTA TO DELETE
-            Conta x = _ContaDAO.ListById(id);
+            Conta conta = _ContaDAO.ListById(id);
 
             //DELETE
-            _ContaDAO.Delete(x);
+            _ContaDAO.Delete(conta);
 
             return RedirectToAction("Index", "Conta");
 

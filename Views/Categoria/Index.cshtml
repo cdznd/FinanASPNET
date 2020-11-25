@@ -1,74 +1,60 @@
-﻿@model List<Categoria>
+﻿@{
 
-<!DOCTYPE html>
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-<html lang="pt-br">
+}
 
-<head>
+@model List<Categoria>
 
-    <meta charset="utf-8">
+<div class="container">
 
-    <title> - Categorias page - </title>
+    <h1> - Categorias - </h1>
 
-</head>
+    <a asp-action="Create" asp-controller="Categoria" class="btn btn-primary" >Click here to create a new category</a>
 
-    <body>
+    <table class="table table-dark">
 
-        <h1> - Categorias - </h1>
-   
-        <hr />
+        <thead>
 
-        <p> To create a new category click in the link above.</p>
-        <a asp-action="Create" asp-controller="Categoria">Click here to create a new category</a>
+            <tr>
 
-        //TODO list all categorys above
+                <th scope="col"> ID </th>
+                <th scope="col"> Nome </th>
+                <th scope="col"> N lancamentos </th>
+                <th scope="col"> Creation Date </th>
 
-        <h1> - LIST - </h1>
+                <th scope="col"></th>
 
-        <table>
+            </tr>
 
-            <thead>
+        </thead>
+
+        <tbody>
+
+            @foreach (Categoria y in Model)
+            {
 
                 <tr>
 
-                    <th> ID </th>
-                    <th> Nome </th>
-                    <th> N lancamentos </th>
-                    <th> Creation Date </th>
+                    <th>@y.Id</th>
+                    <th>@y.Nome</th>
+                    <th> Sem lancamento na categoria ainda </th>
+                    <th>@y.CreationDate</th>
 
-                    <th></th>
+                    <th>
+
+                        <a asp-action="Delete" asp-controller="Categoria" asp-route-id="@y.Id" class="btn btn-danger"> Delete </a>
+                        <a asp-action="Update" asp-controller="Categoria" asp-route-id="@y.Id" class="btn btn-info"> Update </a>
+
+                    </th>
 
                 </tr>
 
-            </thead>
+            }
 
-            <tbody>
+        </tbody>
 
-                @foreach (Categoria y in Model)
-                {
+    </table>
 
-                    <tr>
+ </div>
 
-                        <th>@y.Id</th>
-                        <th>@y.Nome</th>
-                        <th> Sem lancamento na categoria ainda </th>
-                        <th>@y.CreationDate</th>
-                        
-                        <th>
-                            
-                            <a asp-action="Remove" asp-controller="Categoria" asp-route-id ="@y.Id"> Delete </a>
-                            <a asp-action="Update" asp-controller="Categoria" asp-route-id="@y.Id"> Update </a>
-
-                        </th>
-
-                    </tr>
-
-                }
-
-            </tbody>
-
-        </table>
-
-    </body>
-
-</html>

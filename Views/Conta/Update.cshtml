@@ -1,56 +1,62 @@
-﻿@model Conta
+﻿@{
 
-<!DOCTYPE html>
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-<html lang="pt-br">
-
-    <head>
-
-        <meta charset="utf-8">
-
-        <title> - Update page - </title>
+}
 
 
-    </head>
+@model Conta
 
-    <body>
 
-        <h1> - Update - </h1>
+<div class="container">
 
-        <!-- UPDATE FORM -->
-        <form asp-controller="Conta" asp-action="Update" method="post">
+    <h1 class="display-3">Atualizar conta</h1>
 
-            <fieldset>
+    <!-- REGISTER FORM -->
+    <form asp-controller="Conta" asp-action="Update" method="post">
 
-                <legend> Update</legend>
+        <fieldset>
 
-                <!-- Validation Errors -->
-                <div asp-validation-summary="ModelOnly"></div>
+            <!-- Validation Errors -->
+            <div asp-validation-summary="ModelOnly"></div>
 
-                <!-- READONLY ID , USED TO RETRIVE ID AFTER -->
-                <label asp-for="Id">Id</label>
-                <input asp-for="Id" readonly name="IdTxt" type="text" />
-                <input asp-for="Id" name="HdnTxt" type="hidden" />
+            <legend> Register </legend>
 
-                <!-- FIRST NAME -->
+            <!-- FIRST NAME -->
+            <div class="form-group">
+
                 <label asp-for="FirstName"> Name </label>
                 <input asp-for="FirstName" type="text" placeholder="First name" />
 
-                <!-- SECOND NAME -->
+                <span asp-validation-for="FirstName"></span>
+
+            </div>
+
+            <!-- SECOND NAME -->
+            <div class="form-group">
+
                 <label asp-for="SecondName"> Second name </label>
                 <input asp-for="SecondName" type="text" placeholder="Second name" />
 
-                <!-- CPF -->
+                <span asp-validation-for="SecondName"></span>
+
+            </div>
+
+            <!-- CPF -->
+            <div class="form-group">
+
                 <label asp-for="Cpf"> Cpf </label>
                 <input asp-for="Cpf" type="text" placeholder="CPF" />
 
-                <!-- SUBMIT -->
-                <input type="submit" value="Update" />
+                <span asp-validation-for="Cpf"></span>
 
-            </fieldset>
+            </div>
 
-        </form>
+            <!-- SUBMIT -->
+            <input type="submit" value="Cadastrar" class="btn btn-primary"/>
 
-    </body>
+        </fieldset>
 
-</html>
+    </form>
+
+</div>

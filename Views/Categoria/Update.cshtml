@@ -1,20 +1,14 @@
-﻿@model Categoria
+﻿@{
 
-<!DOCTYPE html>
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-<html lang="pt-br">
+}
 
-<head>
+@model Categoria
 
-    <meta charset="utf-8">
+<div class="container">
 
-    <title> - Atualizar categoria </title>
-
-</head>
-
-<body>
-
-    <h1> Atualizar categoria </h1>
+    <h1 class="display-3"> Atualizar categoria </h1>
 
     <!-- REGISTER FORM -->
     <form asp-controller="Categoria" asp-action="Update" method="post">
@@ -25,23 +19,20 @@
 
             <legend> Atualizar categoria </legend>
 
-            <!-- ID -->
-            <label asp-for="Id">Id</label>
-            <input asp-for="Id" readonly />
-            <input asp-for="Id" type="hidden" />
+            <div class="form-group">
 
-            <!-- Nome -->
-            <label asp-for="Nome">Nome da categoria</label>
-            <input asp-for="Nome" type="text" placeholder="Nome da categoria" />
+                <!-- Nome -->
+                <label asp-for="Nome">Nome da categoria</label>
+                <input asp-for="Nome" type="text" placeholder="Nome da categoria" />
+
+            </div>
 
             <span asp-validation-for="Nome"></span>
 
-            <input type="submit" value="Atualizar categoria" />
+            <input type="submit" value="Atualizar categoria" class="btn btn-primary"/>
 
         </fieldset>
 
     </form>
 
-</body>
-
-</html>
+</div>

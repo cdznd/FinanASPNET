@@ -10,10 +10,9 @@ namespace FinanCWebMaster.Controllers
 {
     public class CategoriaController : Controller
     {
-        //DAO   
+        //Read-only variable
         private readonly CategoriaDAO _CategoriaDAO;
 
-        //Constructor
         public CategoriaController(CategoriaDAO categoriaDAO) => _CategoriaDAO = categoriaDAO;
 
         public IActionResult Index()
@@ -21,22 +20,20 @@ namespace FinanCWebMaster.Controllers
             
             List<Categoria> Categorias = _CategoriaDAO.List();
 
+            ViewBag.Title = "Categorias";
+
             return View(Categorias);
 
         }
 
         //CREATE
-
-        //Return Create View
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(Categoria x)
+        public IActionResult Create(Categoria categoria)
         {
 
-            //TODO Implement create funcions
-
-            if (!TryValidateModel(x))
+            if (!TryValidateModel(categoria))
             {
 
                 return View();
@@ -45,7 +42,7 @@ namespace FinanCWebMaster.Controllers
             else
             {
 
-                _CategoriaDAO.Create(x);
+                _CategoriaDAO.Create(categoria);
                 return RedirectToAction("Index", "Categoria");
 
             }
@@ -53,8 +50,6 @@ namespace FinanCWebMaster.Controllers
         }
 
         //UPDATE
-
-        //Return Update view
         public IActionResult Update(int id)
         {
 
@@ -63,20 +58,20 @@ namespace FinanCWebMaster.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Categoria x)
+        public IActionResult Update(Categoria categoria)
         {
 
-            _CategoriaDAO.Update(x);
+            _CategoriaDAO.Update(categoria);
             return RedirectToAction("Index","Categoria");
 
         }
 
         //DELETE
-        public IActionResult Remove(int id)
+        public IActionResult Delete(int id)
         {
 
-            Categoria x = _CategoriaDAO.FindById(id);
-            _CategoriaDAO.Delete(x);
+            Categoria categoria = _CategoriaDAO.FindById(id);
+            _CategoriaDAO.Delete(categoria);
 
             return RedirectToAction("Index","Categoria");
 

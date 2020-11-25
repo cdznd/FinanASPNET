@@ -11,7 +11,6 @@ namespace FinanCWebMaster.DAO
 
         //DAO = DATA ACCESS OBJECT
 
-        //DATA BASE CONTEXT
         private readonly Context _context;
 
         public CategoriaDAO(Context context) => _context = context;

@@ -1,68 +1,62 @@
-﻿@model Conta
+﻿@{
 
-<!DOCTYPE html>
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-<html lang="pt-br">
+}
 
-    <head>
+@model Conta
 
-        <meta charset="utf-8">
+<div class="container">
 
-        <title> - Cadastro de conta - </title>
+    <h1 class="display-3">Cadastrar conta</h1>
 
-    </head>
+    <!-- REGISTER FORM -->
+    <form asp-controller="Conta" asp-action="Create" method="post">
 
-    <body>
+        <fieldset>
 
-        <h1> - Cadastrar conta - </h1>
+            <!-- Validation Errors -->
+            <div asp-validation-summary="ModelOnly"></div>
 
-        <!-- REGISTER FORM -->
-        <form asp-controller="Conta" asp-action="Create" method="post">
+            <legend> Register </legend>
 
-            <fieldset>
+            <!-- FIRST NAME -->
+            <div class="form-group">
 
-                <!-- Validation Errors -->
-                <div asp-validation-summary="ModelOnly"></div>
-
-                <legend> Register </legend>
-
-                <!-- FIRST NAME -->
                 <label asp-for="FirstName"> Name </label>
                 <input asp-for="FirstName" type="text" placeholder="First name" />
 
-                <hr/>
-
                 <span asp-validation-for="FirstName"></span>
 
-                <hr/>
+            </div>
 
-                <!-- SECOND NAME -->
+            <!-- SECOND NAME -->
+            <div class="form-group">
+
                 <label asp-for="SecondName"> Second name </label>
                 <input asp-for="SecondName" type="text" placeholder="Second name" />
 
-                <hr/>
-
                 <span asp-validation-for="SecondName"></span>
 
-                <hr />
+            </div>
 
-                <!-- CPF -->
+            <!-- CPF -->
+            <div class="form-group">
+
                 <label asp-for="Cpf"> Cpf </label>
                 <input asp-for="Cpf" type="text" placeholder="CPF" />
-            
-                <hr/>
 
                 <span asp-validation-for="Cpf"></span>
 
-                <hr />
+            </div>
 
-                <!-- SUBMIT -->
-                <input type="submit" value="Cadastrar" />
+            <!-- SUBMIT -->
+            <input type="submit" value="Cadastrar" class="btn btn-primary"/>
 
-            </fieldset>
+        </fieldset>
 
-        </form>
+    </form>
 
-    </body>
+</div>
 
-</html> 
+

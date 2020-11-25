@@ -27,11 +27,14 @@ namespace FinanCWebMaster.Controllers
         {
 
             List<Lancamento> Lancamentos = _LancamentoDAO.List();
+
+            ViewBag.Title = "Lancamentos";
+
             return View(Lancamentos);
 
         }
 
-        //CREATE VIEW
+        //CREATE 
         public IActionResult Create()
         {
 
@@ -46,15 +49,15 @@ namespace FinanCWebMaster.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Lancamento x)
+        public IActionResult Create(Lancamento lancamento)
         {
 
-            _LancamentoDAO.Create(x);
+            _LancamentoDAO.Create(lancamento);
             return RedirectToAction("Index","Lancamento");
 
         }
 
-        //UPDATE VIEW
+        //UPDATE 
         public IActionResult Update(int Id)
         {
 
@@ -69,17 +72,17 @@ namespace FinanCWebMaster.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Lancamento x)
+        public IActionResult Update(Lancamento lancamento)
         {
 
-            _LancamentoDAO.Update(x);
+            _LancamentoDAO.Update(lancamento);
 
             return RedirectToAction("Index", "Lancamento");
 
         }
 
         //DELETE
-        public IActionResult Remove(int Id)
+        public IActionResult Delete(int Id)
         {
 
             Lancamento x = _LancamentoDAO.findById(Id);

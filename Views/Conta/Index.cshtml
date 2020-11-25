@@ -1,84 +1,33 @@
 ﻿@{
 
-    //C# code
 
-    //int Quantity = ViewBag.Quantidade;
-
-    //List<Conta> Contas = ViewBag.Contas;
-    
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
 @model List<Conta>
 
-<!DOCTYPE html>
+<div class="container">
 
-<html lang="pt-br">
-
-<head>
-
-    <meta charset="utf-8">
-
-    <title> - Account page - </title>
-
-</head>
-
-<body>
-
-    <h1> - Welcome - </h1>
+    <h1> - Contas - </h1>
 
     <hr />
 
-    <a asp-action="Create" asp-controller="Conta">Click here to register a new account</a>
+    <a asp-action="Create" asp-controller="Conta" class="btn btn-primary" >Click here to register a new account</a>
 
-    <!--
-    <h1> - Register - </h1>
-
-    REGISTER FORM
-    <for asp-controller="Conta" asp-action="Create" method="post">
-
-        <fieldset>
-
-
-            <!-- Validation Errors
-            <div asp-validation-summary="All"></div>
-
-            <legend> Register </legend>
-
-            <!-- FIRST NAME
-            <label for="firstNameTxt"> Name </label>
-            <input name="firstNameTxt" type="text" placeholder="First name" />
-
-            <!-- SECOND NAME
-            <label for="secondNameTxt"> Second name </label>
-            <input name="secondNameTxt" type="text" placeholder="Second name" />
-
-            <!-- CPF
-            <label for="cpfTxt"> Cpf </label>
-            <input name="cpfTxt" type="text" placeholder="CPF" />
-
-            <!-- SUBMIT
-            <input type="submit" value="Cadastrar" />
-
-        </fieldset>
-
-    </form> -->
-
-    <h1> - List - </h1>
-
-    <table>
+    <table class="table table-dark">
 
         <thead>
 
             <tr>
 
-                <th> ID </th>
-                <th> First name </th>
-                <th> Second name </th>
-                <th> CPF </th>
-                <th> Creation date </th>
+                <th scope="col"> ID </th>
+                <th scope="col"> First name </th>
+                <th scope="col"> Second name </th>
+                <th scope="col"> CPF </th>
+                <th scope="col"> Creation date </th>
 
-                <th></th>
+                <th scope="col"></th>
 
             </tr>
 
@@ -104,8 +53,8 @@
 
                     <th>
 
-                        <a asp-action="Remove" asp-controller="Conta" asp-route-id="@y.Id"> Delete </a>
-                        <a asp-action="Update" asp-controller="Conta" asp-route-id="@y.Id"> Update </a>
+                        <a asp-action="Delete" asp-controller="Conta" asp-route-id="@y.Id" class="btn btn-danger"> Delete </a>
+                        <a asp-action="Update" asp-controller="Conta" asp-route-id="@y.Id" class="btn btn-info"> Update </a>
 
                     </th>
 
@@ -117,6 +66,4 @@
 
     </table>
 
-</body>
-
-</html> 
+</div>
