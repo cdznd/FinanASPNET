@@ -26,6 +26,8 @@ namespace FinanCWebMaster.Models
         [Required(ErrorMessage = "Campo CPF vazio")]
         public string Cpf { get; set; }
 
+        public string Image { get; set; }
+
         //Uma conta tem varios lançamentos, então
         public virtual ICollection<Lancamento> Lancamentos { get; set; }
 

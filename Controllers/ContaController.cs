@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FinanCWebMaster.DAO;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FinanCWebMaster.Controllers
 {
@@ -13,7 +16,14 @@ namespace FinanCWebMaster.Controllers
         
         private readonly ContaDAO _ContaDAO;
 
-        public ContaController(ContaDAO contaDAO) => _ContaDAO = contaDAO;
+        private readonly IHostingEnvironment _hosting;
+
+        public ContaController(ContaDAO contaDAO, IHostingEnvironment hosting) {
+            
+            _ContaDAO = contaDAO;
+            _hosting = hosting;
+
+        }
 
         public IActionResult Index()
         {
@@ -31,9 +41,32 @@ namespace FinanCWebMaster.Controllers
 
         //CREATE
         [HttpPost]
-        public IActionResult Create(Conta conta)
+        public IActionResult Create(Conta conta, IFormFile file)
         {
            
+            if(file != null)
+            {
+                //Search for Guid
+                //Guid is an Globally idetifiew, Identificador unico global
+
+                string imgFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+
+                //string imgFileName = Path.GetFileName(file.FileName);
+                string pathFileStorage = Path.Combine(_hosting.WebRootPath,"images",imgFileName);
+
+                file.CopyTo(new FileStream(pathFileStorage, FileMode.CreateNew));
+
+                conta.Image = imgFileName;
+
+            }
+            else
+            {
+
+                conta.Image = "default.png";
+
+            }
+
+
             if (!TryValidateModel(conta))
             {
 
@@ -52,6 +85,7 @@ namespace FinanCWebMaster.Controllers
             }
 
             ModelState.AddModelError("", "Cpf ja existe");
+
             return View();
 
         }

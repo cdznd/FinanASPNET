@@ -11,7 +11,8 @@
     <h1 class="display-3">Cadastrar conta</h1>
 
     <!-- REGISTER FORM -->
-    <form asp-controller="Conta" asp-action="Create" method="post">
+    <form asp-controller="Conta" asp-action="Create" method="post" 
+          enctype="multipart/form-data">
 
         <fieldset>
 
@@ -24,9 +25,9 @@
             <div class="form-group">
 
                 <label asp-for="FirstName"> Name </label>
-                <input asp-for="FirstName" type="text" placeholder="First name" />
+                <input asp-for="FirstName" type="text" placeholder="First name" class="form-control"/>
 
-                <span asp-validation-for="FirstName"></span>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
 
             </div>
 
@@ -34,9 +35,9 @@
             <div class="form-group">
 
                 <label asp-for="SecondName"> Second name </label>
-                <input asp-for="SecondName" type="text" placeholder="Second name" />
+                <input asp-for="SecondName" type="text" placeholder="Second name" class="form-control"/>
 
-                <span asp-validation-for="SecondName"></span>
+                <span asp-validation-for="SecondName" class="text-danger"></span>
 
             </div>
 
@@ -44,14 +45,22 @@
             <div class="form-group">
 
                 <label asp-for="Cpf"> Cpf </label>
-                <input asp-for="Cpf" type="text" placeholder="CPF" />
+                <input asp-for="Cpf" type="text" placeholder="CPF" class="form-control"/>
 
-                <span asp-validation-for="Cpf"></span>
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+
+            </div>
+
+            <!-- PHOTO / FILE -->
+            <div class="form-group">
+
+                <label asp-for="Image"> Foto </label>
+                <input asp-for="Image" type="file" name="file" class="form-control-file"/>
 
             </div>
 
             <!-- SUBMIT -->
-            <input type="submit" value="Cadastrar" class="btn btn-primary"/>
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
 
         </fieldset>
 

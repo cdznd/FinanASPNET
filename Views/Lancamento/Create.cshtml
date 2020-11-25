@@ -74,7 +74,7 @@
             <div class="form-group">
 
                 <label asp-for="Valor"> Valor </label>
-                <input asp-for="Valor" type="text" placeholder="Valor" class="form-control" />
+                <input asp-for="Valor" type="text" placeholder="$1,000,000.00" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" class="form-control"/>
 
             </div>
 
