@@ -14,10 +14,10 @@ namespace FinanCWebMaster.Models
         [Required(ErrorMessage = "Campo nome vazio")]
         public string Nome { get; set; }
 
-        public virtual ICollection<Lancamento> Lancamento { get; set; }
+        public virtual ICollection<Lancamento> Lancamentos { get; set; }
 
         //TODO
-        public override string ToString() => $" Id:{ this.Id } | Nome:{ this.Nome } | Numero de lancamentos:{ Lancamento.Count } | Data de criação:{ this.CreationDate } ";
+        public override string ToString() => $" Id:{ this.Id } | Nome:{ this.Nome } | Numero de lancamentos:{ Lancamentos.Count } | Data de criação:{ this.CreationDate } ";
 
     }
 }

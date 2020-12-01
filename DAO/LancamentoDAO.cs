@@ -19,10 +19,10 @@ namespace FinanCWebMaster.DAO
         public Lancamento findById(int id) => _context.Lancamentos.FirstOrDefault(x => x.Id == id);
 
         //CREATE
-        public void Create(Lancamento x)
+        public void Create(Lancamento lancamento)
         {
 
-            _context.Lancamentos.Add(x);
+            _context.Lancamentos.Add(lancamento);
             _context.SaveChanges();
 
         }

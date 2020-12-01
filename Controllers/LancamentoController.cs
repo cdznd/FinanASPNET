@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FinanCWebMaster.DAO;
 using FinanCWebMaster.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FinanCWebMaster.Controllers
 {
@@ -26,23 +27,25 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Index()
         {
 
-            List<Lancamento> Lancamentos = _LancamentoDAO.List();
-
             ViewBag.Title = "Lancamentos";
 
-            return View(Lancamentos);
+            List<Lancamento> lancamentos = _LancamentoDAO.List();
+
+            return View(lancamentos);
 
         }
 
-        //CREATE 
+        //CREATE VIEW RETURNS
         public IActionResult Create()
         {
 
-            List<Conta> Contas = _ContaDAO.List();
-            List<Categoria> Categorias = _CategoriaDAO.List();
+            ViewBag.Title = "Criar lançamento";
 
-            ViewBag.Contas = Contas;
-            ViewBag.Categorias = Categorias;
+            Conta conta = _ContaDAO.SearchByEmail(User.Identity.Name);
+            ViewBag.Conta = conta;
+
+            //ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
+            ViewBag.Categorias = new SelectList(_CategoriaDAO.List(), "Id", "Nome");
 
             return View();
 
@@ -61,11 +64,10 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Update(int Id)
         {
 
-            List<Conta> Contas = _ContaDAO.List();
-            List<Categoria> Categorias = _CategoriaDAO.List();
+            ViewBag.Title = "Atualizar lançamento";
 
-            ViewBag.Contas = Contas;
-            ViewBag.Categorias = Categorias;
+            ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
+            ViewBag.Categorias = new SelectList(_CategoriaDAO.List(), "Id", "Nome");
 
             return View(_LancamentoDAO.findById(Id));
 
@@ -85,9 +87,9 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Delete(int Id)
         {
 
-            Lancamento x = _LancamentoDAO.findById(Id);
+            Lancamento lancamento = _LancamentoDAO.findById(Id);
 
-            _LancamentoDAO.Delete(x);
+            _LancamentoDAO.Delete(lancamento);
 
             return RedirectToAction("Index", "Lancamento");
 

@@ -2,14 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FinanCWebMaster.DAO;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace FinanCWebMaster.Controllers
 {
+
+    //One level of abstraction per Function
 
     public class ContaController : Controller
     {
@@ -18,10 +21,27 @@ namespace FinanCWebMaster.Controllers
 
         private readonly IHostingEnvironment _hosting;
 
-        public ContaController(ContaDAO contaDAO, IHostingEnvironment hosting) {
+        private readonly UserManager<ContaAuth> _userManager;
+
+        private readonly SignInManager<ContaAuth> _signInManager;
+
+        public ContaController(ContaDAO contaDAO, IHostingEnvironment hosting, UserManager<ContaAuth> contaManager, SignInManager<ContaAuth> signInManager) {
             
             _ContaDAO = contaDAO;
             _hosting = hosting;
+            _userManager = contaManager;
+            _signInManager = signInManager;
+
+        }
+
+        public IActionResult ContaInfo()
+        {
+
+            string username = User.Identity.Name;
+
+            Conta profile = _ContaDAO.SearchByEmail(username);
+
+            return View(profile);
 
         }
 
@@ -41,18 +61,121 @@ namespace FinanCWebMaster.Controllers
 
         //CREATE
         [HttpPost]
-        public IActionResult Create(Conta conta, IFormFile file)
+        public async Task<IActionResult> Create(Conta conta, IFormFile file)
         {
-           
-            if(file != null)
+
+            //Preciso validar o modelo antes de criar o conta Auth, ou o ContaAuth da conta de validar?
+            if (TryValidateModel(conta))
             {
+
+                ContaAuth contaAuth = new ContaAuth();
+                contaAuth.UserName = conta.Email;
+                contaAuth.Email = conta.Email;
+
+                IdentityResult result = await _userManager.CreateAsync(contaAuth, conta.Password);
+
+                if (!result.Succeeded)
+                {
+
+                    addErrors(result);
+
+                    return View();
+
+                }
+
+                PictureAdapter(conta, file);
+
+                //Validation
+                if (_ContaDAO.Create(conta))
+                {
+
+                    return RedirectToAction("Index", "Conta");
+
+                }
+                else
+                {
+
+                    return View();
+
+                }
+
+            }
+            else
+            {
+
+                return View();
+
+            }
+
+        }
+
+        public void addErrors(IdentityResult result)
+        {
+
+            foreach(IdentityError error in result.Errors)
+            {
+
+                ModelState.AddModelError("", error.Description);
+
+            }
+
+        }
+
+        //UPDATE VIEW
+        public async Task<IActionResult> Update(int id)
+        {
+
+            //Is possible to use Viewbags too
+            //LIST BY ID
+            //ViewBag.Conta = _ContaDAO.ListById(id);
+
+            return View(_ContaDAO.ListById(id));
+
+        }
+
+        //UPDATE
+        [HttpPost]
+        public async Task<IActionResult> Update(Conta conta)
+        {
+
+            //UPDATE
+            _ContaDAO.Update(conta);
+
+            return RedirectToAction("Index", "Conta");
+
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            Conta conta = _ContaDAO.ListById(id);
+
+            //DELETE
+            _ContaDAO.Delete(conta);
+
+            return RedirectToAction("Index", "Conta");
+
+        }
+
+
+
+
+
+
+
+
+        public void PictureAdapter(Conta conta, IFormFile file)
+        {
+
+            if (file != null)
+            {
+
                 //Search for Guid
-                //Guid is an Globally idetifiew, Identificador unico global
+                //Guid => Identificador unico global
 
                 string imgFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
-                //string imgFileName = Path.GetFileName(file.FileName);
-                string pathFileStorage = Path.Combine(_hosting.WebRootPath,"images",imgFileName);
+                string pathFileStorage = Path.Combine(_hosting.WebRootPath, "images", imgFileName);
 
                 file.CopyTo(new FileStream(pathFileStorage, FileMode.CreateNew));
 
@@ -66,63 +189,48 @@ namespace FinanCWebMaster.Controllers
 
             }
 
-
-            if (!TryValidateModel(conta))
-            {
+        }
 
 
-                return View();
 
 
-            }
 
-            //Validation
-            if (_ContaDAO.Create(conta))
-            {
+        //LOGIN
 
-                return RedirectToAction("Index", "Conta");
-
-            }
-
-            ModelState.AddModelError("", "Cpf ja existe");
+        public IActionResult Login()
+        {
 
             return View();
 
         }
 
-        //UPDATE VIEW
-        public IActionResult Update(int id)
-        {
-
-            //Is possible to use Viewbags too
-            //LIST BY ID
-            //ViewBag.Conta = _ContaDAO.ListById(id);
-
-            return View(_ContaDAO.ListById(id));
-
-        }
-
-        //UPDATE
         [HttpPost]
-        public IActionResult Update(Conta conta)
+        public async Task<IActionResult> Login([Bind("Email, Password")] Conta conta)
         {
 
-            //UPDATE
-            _ContaDAO.Update(conta);
+            var result = await _signInManager.PasswordSignInAsync(conta.Email, conta.Password, false, false);
 
-            return RedirectToAction("Index", "Conta");
+            if (result.Succeeded)
+            {
+
+                return RedirectToAction("Index", "Conta");
+
+            }
+            else
+            {
+
+                ModelState.AddModelError("", "Login invalido");
+                return View(conta);
+
+            }           
 
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Logout()
         {
 
-            Conta conta = _ContaDAO.ListById(id);
-
-            //DELETE
-            _ContaDAO.Delete(conta);
-
-            return RedirectToAction("Index", "Conta");
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
 
         }
 

@@ -25,9 +25,11 @@
                 <label asp-for="Nome">Nome da categoria</label>
                 <input asp-for="Nome" type="text" placeholder="Nome da categoria" />
 
+                <!-- Add icons -->
+
             </div>
 
-            <span asp-validation-for="Nome"></span>
+            <span asp-validation-for="Nome" class="text-danger"></span>
 
             <input type="submit" value="Cadastrar categoria" class="btn btn-primary"/>
 

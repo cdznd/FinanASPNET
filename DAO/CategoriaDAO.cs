@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FinanCWebMaster.DAO
 {
@@ -28,6 +27,7 @@ namespace FinanCWebMaster.DAO
 
         //READ
         public List<Categoria> List() => _context.Categorias.ToList();
+
 
         //UPDATE
         public void Update(Categoria x)

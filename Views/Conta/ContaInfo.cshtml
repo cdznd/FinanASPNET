@@ -1,0 +1,30 @@
+﻿@{
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model Conta
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <img src="~/images/@Model.Image" style="max-height:300px"/>
+
+        </div>
+
+        <div class="col-md-8">
+
+            <h2> Nome: @Model.FirstName @Model.SecondName.</h2>
+            <p> CPF: @Model.Cpf </p>
+            <p> Email: @Model.Email</p>
+
+        </div>
+
+    </div>
+
+</div>

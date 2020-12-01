@@ -151,6 +151,16 @@ C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\n
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Lancamento\Update.cshtml.g.cs
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Castle.Core.dll
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Conta\Login.cshtml.g.cs
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Conta\ContaInfo.cshtml.g.cs
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\FinanCWebMaster.csproj.CoreCompileInputs.cache
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\FinanCWebMaster.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs

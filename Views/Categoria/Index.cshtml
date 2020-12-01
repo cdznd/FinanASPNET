@@ -20,7 +20,7 @@
 
                 <th scope="col"> ID </th>
                 <th scope="col"> Nome </th>
-                <th scope="col"> N lancamentos </th>
+                <th scope="col"> N° lançamentos </th>
                 <th scope="col"> Creation Date </th>
 
                 <th scope="col"></th>
@@ -31,20 +31,20 @@
 
         <tbody>
 
-            @foreach (Categoria y in Model)
+            @foreach (Categoria categoria in Model)
             {
 
                 <tr>
 
-                    <th>@y.Id</th>
-                    <th>@y.Nome</th>
-                    <th> Sem lancamento na categoria ainda </th>
-                    <th>@y.CreationDate</th>
+                    <th>@categoria.Id</th>
+                    <th>@categoria.Nome</th>
+                    <th>@categoria.Lancamentos.Count </th>
+                    <th>@categoria.CreationDate</th>
 
                     <th>
 
-                        <a asp-action="Delete" asp-controller="Categoria" asp-route-id="@y.Id" class="btn btn-danger"> Delete </a>
-                        <a asp-action="Update" asp-controller="Categoria" asp-route-id="@y.Id" class="btn btn-info"> Update </a>
+                        <a asp-action="Delete" asp-controller="Categoria" asp-route-id="@categoria.Id" class="btn btn-danger"> Delete </a>
+                        <a asp-action="Update" asp-controller="Categoria" asp-route-id="@categoria.Id" class="btn btn-info"> Update </a>
 
                     </th>
 

@@ -14,66 +14,6 @@
         <hr />
 
         <a asp-action="Create" asp-controller="Conta" class="btn btn-primary">Click here to register a new account</a>
-        <!--
-    <table class="table table-dark">
-
-        <thead>
-
-            <tr>
-
-                <th scope="col"> ID </th>
-                <th scope="col"> First name </th>
-                <th scope="col"> Second name </th>
-                <th scope="col"> CPF </th>
-                <th scope="col"> Creation date </th>
-
-                <th scope="col"> Picture </th>
-
-                <th scope="col"></th>
-
-            </tr>
-
-        </thead>
-
-        <!-- LISTING ALL ACCOUNTS
-        <tbody>
-
-            @foreach (Conta conta in Model)
-            {
-
-                <tr>
-
-                    <th>@conta.Id</th>
-
-                    <th>@conta.FirstName</th>
-
-                    <th>@conta.SecondName</th>
-
-                    <th>@conta.Cpf</th>
-
-                    <th>@conta.CreationDate</th>
-
-                    <th>
-
-                        <img src="~/images/@conta.Image"
-                             alt="@conta.FirstName" />
-
-                    </th>
-
-                    <th>
-
-                        <a asp-action="Delete" asp-controller="Conta" asp-route-id="@conta.Id" class="btn btn-danger"> Delete </a>
-                        <a asp-action="Update" asp-controller="Conta" asp-route-id="@conta.Id" class="btn btn-info"> Update </a>
-
-                    </th>
-
-                </tr>
-
-            }
-
-        </tbody>
-
-    </table>-->
 
         <div class="row">
 
@@ -88,12 +28,13 @@
 
                         <div class="card-body">
 
-                            <h5 class="card-title">@conta.FirstName</h5>
-                            <h6 class="card-subtitle">@conta.SecondName</h6>
-                            <p class="card-text">@conta.Cpf</p>
-                            <p class="card-text">@conta.CreationDate</p>
+                            <h5 class="card-title">@conta.FirstName @conta.SecondName</h5>
+                            <h6 class="card-text">Id:@conta.Id</h6>
+                            <p class="card-text">CPF:@conta.Cpf</p>
+                            <p class="card-text">Email:@conta.Email</p>
+                            <p class="card-text">Data de criação:@conta.CreationDate</p>
                             <hr />
-                            <p class="card-text">Id:>>@conta.Id</p>
+                            <p class="card-text">Numero de lancamentos = @conta.Lancamentos.Count</p>
 
                         </div>
 
@@ -110,8 +51,6 @@
                 </div>
 
             }
-
-
 
         </div>
 

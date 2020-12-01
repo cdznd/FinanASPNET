@@ -1,7 +1,6 @@
 ﻿@{
 
-    List<Conta> Contas = ViewBag.Contas;
-    List<Categoria> Categorias = ViewBag.Categorias;
+    Conta conta = ViewBag.Conta;
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -30,16 +29,13 @@
                 <label asp-for="ContaId">Conta</label>
 
                 <!-- SELECT CONTA -->
-                <select asp-for="ContaId" class="form-control">
+                <select class="form-control" disabled>
 
-                    @foreach (Conta x in Contas)
-                    {
-
-                        <option value="@x.Id"> @x.FirstName </option>
-
-                    }
+                    <option>@conta.FirstName</option>
 
                 </select>
+
+                <input asp-for="ContaId" value="@conta.Id" style="display:none"/>
 
             </div>
 
@@ -48,14 +44,9 @@
 
                 <label asp-for="CategoriaId">Categoria</label>
 
-                <select asp-for="CategoriaId" class="form-control">
+                <select asp-items="@ViewBag.Categorias" asp-for="CategoriaId" class="form-control">
 
-                    @foreach (Categoria x in Categorias)
-                    {
-
-                        <option value="@x.Id"> @x.Nome </option>
-
-                    }
+                    <option> - - SELECIONAR - - </option>
 
                 </select>
 
@@ -74,11 +65,11 @@
             <div class="form-group">
 
                 <label asp-for="Valor"> Valor </label>
-                <input asp-for="Valor" type="text" placeholder="$1,000,000.00" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" class="form-control"/>
+                <input asp-for="Valor" placeholder="$1,000,000.00" class="form-control"/>
 
             </div>
 
-            <span asp-validation-for="Description"></span>
+            <span asp-validation-for="Description" class="text-danger"></span>
 
             <!-- SUBMIT -->
             <input type="submit" value="Cadastrar lancamento" class="btn btn-primary"/>

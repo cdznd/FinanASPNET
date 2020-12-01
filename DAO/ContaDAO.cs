@@ -24,6 +24,9 @@ namespace FinanCWebMaster.DAO
         public Conta SearchForName(string name) => _context.Contas.FirstOrDefault(x => x.FirstName == name);
         public Conta SearchForCpf(string cpf) => _context.Contas.FirstOrDefault(x => x.Cpf == cpf);
 
+        public Conta SearchByEmail(string email) => _context.Contas.FirstOrDefault(x => x.Email == email);
+
+
         //CRUD OPERATIONS
 
 

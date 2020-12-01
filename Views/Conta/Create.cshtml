@@ -21,21 +21,18 @@
 
             <legend> Register </legend>
 
-            <!-- FIRST NAME -->
+            <!-- FIRST AND SECOND NAME -->
             <div class="form-group">
 
+                <!-- FIRST -->
                 <label asp-for="FirstName"> Name </label>
-                <input asp-for="FirstName" type="text" placeholder="First name" class="form-control"/>
+                <input asp-for="FirstName" type="text" placeholder="First name" class="form-control" />
 
                 <span asp-validation-for="FirstName" class="text-danger"></span>
 
-            </div>
-
-            <!-- SECOND NAME -->
-            <div class="form-group">
-
+                <!-- SECOND -->
                 <label asp-for="SecondName"> Second name </label>
-                <input asp-for="SecondName" type="text" placeholder="Second name" class="form-control"/>
+                <input asp-for="SecondName" type="text" placeholder="Second name" class="form-control" />
 
                 <span asp-validation-for="SecondName" class="text-danger"></span>
 
@@ -45,9 +42,46 @@
             <div class="form-group">
 
                 <label asp-for="Cpf"> Cpf </label>
-                <input asp-for="Cpf" type="text" placeholder="CPF" class="form-control"/>
+                <input asp-for="Cpf" type="text" placeholder="CPF" class="form-control" />
 
                 <span asp-validation-for="Cpf" class="text-danger"></span>
+
+            </div>
+
+            <hr />
+
+        </fieldset>
+
+        <fieldset>
+
+            <!-- ACCOUNT INFO -->
+            <!-- EMAIL -->
+            <div class="form-group">
+
+                <label asp-for="Email"> Email </label>
+                <input asp-for="Email" type="email" placeholder="Email" class="form-control" />
+
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+
+                <label asp-for="Password"> Password </label>
+                <input asp-for="Password" type="password" placeholder="Password" class="form-control" />
+
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+
+            <!-- PASSWORD VALIDATION -->
+            <div class="form-group">
+
+                <label asp-for="PasswordValidation"> Password Repeat </label>
+                <input asp-for="PasswordValidation" type="password" placeholder="Password" class="form-control" />
+
+                <span asp-validation-for="PasswordValidation" class="text-danger"></span>
 
             </div>
 
@@ -55,7 +89,7 @@
             <div class="form-group">
 
                 <label asp-for="Image"> Foto </label>
-                <input asp-for="Image" type="file" name="file" class="form-control-file"/>
+                <input asp-for="Image" type="file" name="file" class="form-control-file" />
 
             </div>
 

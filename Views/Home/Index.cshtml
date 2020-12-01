@@ -1,6 +1,8 @@
-﻿@{ 
+﻿@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var JSON = ViewBag.CategoriasName;
+
 
 }
 
@@ -8,3 +10,43 @@
 
 
 <a id="sla" href="#">cleck here</a>
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <img src="http://chart.apis.google.com/chart?chxt=x,y&cht=bvs&chd=t:160,170,185,165,140&chco=76A4FB&chls=2.0&chs=280x250&chxl=0:|Categoria1|Categoria2|cate|foda|sla" />
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <img src="http://chart.apis.google.com/chart?chxt=x,y&cht=bvs&chd=t:160,170,185,165,140&chco=76A4FB&chls=2.0&chs=280x250&chxl=0:|Categoria1|Categoria2|cate|foda|sla" />
+
+    </div>
+
+    <div class="col-md-4" width="600" height="400">
+
+        <canvas id="myChart"></canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, @Html.Raw(Model.ChartJson) );
+
+    });
+
+</script>
+
+<script src="~/lib/Chart.js-2.9.4/dist/Chart.js" asp-append-version="true"></script>
+

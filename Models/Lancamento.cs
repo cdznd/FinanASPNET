@@ -20,7 +20,6 @@ namespace FinanCWebMaster.Models
         public virtual Conta Conta { get; set; }
 
         [Required(ErrorMessage = "Campo valor vazio")]
-        [DataType(DataType.Currency)]
         public double Valor { get; set; }
 
         [DataType(DataType.Text)]

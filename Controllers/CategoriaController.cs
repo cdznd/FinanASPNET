@@ -22,9 +22,12 @@ namespace FinanCWebMaster.Controllers
 
             ViewBag.Title = "Categorias";
 
+            
+
             return View(Categorias);
 
         }
+
 
         //CREATE
         public IActionResult Create() => View();
