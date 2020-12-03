@@ -17,12 +17,56 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Index()
         {
 
-            List<Categoria> Categorias = _CategoriaDAO.List();
+            List<Categoria> categorias = _CategoriaDAO.List();
             List<String> CategoriasName = new List<String>();
 
-   
+            List<Lancamento> lancamentos = new List<Lancamento>();
 
-            
+            //double valorTotal;
+            double valorTotal = 0;
+
+            foreach (Categoria categoria in categorias)
+            {
+
+                if (categoria.Id == 5)
+                {
+
+                    foreach (Lancamento lancamento in categoria.Lancamentos)
+                    {
+
+                        valorTotal += lancamento.Valor;
+
+                    }
+
+                }
+
+            }
+
+            Console.WriteLine(valorTotal);
+
+            //List<Categoria> => JSON
+            //Newsonsoft.Json
+
+            /*
+            var y = JsonConvert.SerializeObject(lancamentos, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+                    //PreserveReferencesHandling = PreserveReferencesHandling.Objects
+
+                });
+
+            var x = JsonConvert.SerializeObject(categorias, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+                    //PreserveReferencesHandling = PreserveReferencesHandling.Objects
+
+                });
+
+            */
 
 
             ViewBag.Title = "Home";

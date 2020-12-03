@@ -1,7 +1,7 @@
 ﻿@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var JSON = ViewBag.CategoriasName;
+    var JSON = ViewBag.CategoriasJson;
 
 
 }
@@ -15,38 +15,387 @@
 
     <div class="col-md-4">
 
-        <img src="http://chart.apis.google.com/chart?chxt=x,y&cht=bvs&chd=t:160,170,185,165,140&chco=76A4FB&chls=2.0&chs=280x250&chxl=0:|Categoria1|Categoria2|cate|foda|sla" />
+        <h2> Grafico gasto por mes </h2>
+
+        <canvas id="LineChart" width="500" height="500"></canvas>
 
     </div>
-
-</div>
-
-<div class="row">
 
     <div class="col-md-4">
 
-        <img src="http://chart.apis.google.com/chart?chxt=x,y&cht=bvs&chd=t:160,170,185,165,140&chco=76A4FB&chls=2.0&chs=280x250&chxl=0:|Categoria1|Categoria2|cate|foda|sla" />
+        <h2> Grafico gasto por categoria </h2>
+
+        <canvas id="CategoryChart" width="500" height="500"></canvas>
 
     </div>
 
-    <div class="col-md-4" width="600" height="400">
+    <div class="col-md-4">
 
-        <canvas id="myChart"></canvas>
+        <h2> Grafico gasto por categoria </h2>
+
+        <canvas id="CategoryDoughnutChart" width="500" height="500"></canvas>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <h2> Grafico gasto por categoria </h2>
+
+        <canvas id="CategoryPieChart" width="500" height="500"></canvas>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <h2> Grafico gasto por categoria </h2>
+
+        <canvas id="CategoryPolarAreaChart" width="500" height="500"></canvas>
 
     </div>
 
 </div>
 
+<button class="btn bnt-success" id="buttonX">Click here to use a web service</button>
+
 <script>
 
-    document.addEventListener('DOMContentLoaded', (event) => {
+    //API PARA COTAÇÃO DE MOEDA
+    //https://docs.awesomeapi.com.br/api-de-moedas
+    //var url = "https://economia.awesomeapi.com.br/json/all/USD-BRL,CAD-BRL,ARS-BRL,EUR-BRL,CHF-BRL,BTC-BRL,LTC-BRL,ETH-BRL"
 
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, @Html.Raw(Model.ChartJson) );
+    //MyAPIs
+    var categoriaListUrl = "https://localhost:44356/api/Categoria/List";
+    var lancamentoListUrl = "https://localhost:44356/api/Lancamento/List";
 
-    });
+    var lancamentosCategoriaByIdUrl = "https://localhost:44356/api/Categoria/Search/{id}/Lancamentos"
+
+    async function FillCharts() {
+
+        var CategoriaNames = [];
+        var CategoriaValues = [];
+
+        //CATEGORY CHARTS
+
+        fetch(categoriaListUrl, { method: "GET" })
+            .then(reponse => reponse.json())
+            .then(data => {
+
+                data.forEach(categoria => {
+
+                    var categoriaId = categoria.id
+                    var categoriaName = categoria.nome
+                    var url = `https://localhost:44356/api/Categoria/Search/${categoriaId}/LancamentosValueById`
+
+                    fetch(url, { method: "GET" })
+                        .then(response => response.json())
+                        .then(data => {
+
+                            CategoriaNames.push(categoriaName);
+                            CategoriaValues.push(data);
+
+                    })
+
+                });
+
+            }).catch(error => console.log(error));
+
+        //LINEAR CHART
+
+        var Months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+        var MonthValue = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+        var MonthNumber = 0;
+
+        for (var month of Months) {
+
+            MonthNumber++;
+            var url = `https://localhost:44356/api/Lancamento/Search/Month/${MonthNumber}`;
+
+            await fetch(url, { method: "GET" })
+                .then(response => response.json())
+                .then(data => {
+
+                    for (var lancamento of data) {
+
+                        MonthValue[MonthNumber - 1] = MonthValue[MonthNumber - 1] + lancamento.valor;
+
+                    }
+
+                }).catch(error => console.log(error));
+
+        }
+
+        createPolarAreaChart(CategoriaNames, CategoriaValues)
+        createPieChart(CategoriaNames, CategoriaValues)
+        createDoughnutChart(CategoriaNames, CategoriaValues)
+        createChart(CategoriaNames, CategoriaValues)
+        createLineChart(Months, MonthValue)
+
+    }
+
+    function createLineChart(Months, ValueByMonth) {
+
+        var ctx = document.getElementById('LineChart').getContext('2d');
+
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Months,
+                datasets: [{
+                    label: 'R$',
+                    data: ValueByMonth,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function createPolarAreaChart(CategoriaNomes, ValorTotalCategoria) {
+
+        var ctx = document.getElementById('CategoryPolarAreaChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                datasets: [{
+                    label: 'R$',
+                    data: ValorTotalCategoria,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function createPieChart(CategoriaNomes, ValorTotalCategoria) {
+
+        var ctx = document.getElementById('CategoryPieChart').getContext('2d');
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: CategoriaNomes,
+                datasets: [{
+                    label: 'R$',
+                    data: ValorTotalCategoria,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function createDoughnutChart(CategoriaNomes, ValorTotalCategoria) {
+
+        var ctx = document.getElementById('CategoryDoughnutChart').getContext('2d');
+
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: CategoriaNomes,
+                datasets: [{
+                    label: 'R$',
+                    data: ValorTotalCategoria,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+
+        });
+
+    }
+
+    function createChart(CategoriaNomes,ValorTotalCategoria) {
+
+        var ctx = document.getElementById('CategoryChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: CategoriaNomes,
+                datasets: [{
+                    label: 'R$',
+                    data: ValorTotalCategoria,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+    var button = document.getElementById("buttonX");
+    button.addEventListener("click", FillCharts);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function CurrencyConvert() {
+
+        fetch(url, { method: "GET" })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+
+                var USD = data.USD.ask;
+                var CAD = data.CAD.ask;
+                var ARS = data.ARS.ask;
+                var EUR = data.EUR.ask;
+                var CHF = data.CHF.ask;
+                var BTC = data.BTC.ask;
+                var LTC = data.LTC.ask;
+                var ETH = data.ETH.ask;
+
+                console.log("1 Dolar = R$" + 1 * USD);
+                console.log("1 Dolar canadense = R$" + 1 * CAD);
+                console.log("1 Peso argentino = R$" + 1 * ARS);
+                console.log("1 Euro = R$" + 1 * EUR);
+                console.log("1 Franco suiço = R$" + 1 * CHF);
+                console.log("1 Bitcoin = R$" + 1 * BTC);
+                console.log("1 Litecoin = R$" + 1 * LTC);
+                console.log("1 Etherun = R$" + 1 * ETH);
+
+            }
+
+    }
 
 </script>
-
-<script src="~/lib/Chart.js-2.9.4/dist/Chart.js" asp-append-version="true"></script>
-

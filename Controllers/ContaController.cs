@@ -39,7 +39,7 @@ namespace FinanCWebMaster.Controllers
 
             string username = User.Identity.Name;
 
-            Conta profile = _ContaDAO.SearchByEmail(username);
+            Conta profile = _ContaDAO.FindByEmail(username);
 
             return View(profile);
 

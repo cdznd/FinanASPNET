@@ -56,7 +56,7 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Update(int id)
         {
 
-            return View(_CategoriaDAO.FindById(id));
+            return View(_CategoriaDAO.findById(id));
 
         }
 
@@ -73,7 +73,7 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Delete(int id)
         {
 
-            Categoria categoria = _CategoriaDAO.FindById(id);
+            Categoria categoria = _CategoriaDAO.findById(id);
             _CategoriaDAO.Delete(categoria);
 
             return RedirectToAction("Index","Categoria");

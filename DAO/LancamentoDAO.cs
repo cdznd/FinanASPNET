@@ -15,9 +15,6 @@ namespace FinanCWebMaster.DAO
 
         public LancamentoDAO(Context context) => _context = context;
 
-        //FIND BY ID
-        public Lancamento findById(int id) => _context.Lancamentos.FirstOrDefault(x => x.Id == id);
-
         //CREATE
         public void Create(Lancamento lancamento)
         {
@@ -26,24 +23,43 @@ namespace FinanCWebMaster.DAO
             _context.SaveChanges();
 
         }
+        
+        //READ
 
-        //LIST
         public List<Lancamento> List() => _context.Lancamentos.ToList();
+
+        public Lancamento FindById(int id) => _context.Lancamentos.FirstOrDefault(lancamento => lancamento.Id == id);
+
+        public List<Lancamento> ListByMonth(int date) => _context.Lancamentos.Where(lancamento => lancamento.CreationDate.Month == date).ToList();
+
+        //Fixed
+        //Retorna os lançamentos de um determinado mes
+        //public static List<Lancamento> ListByMonth(int Id, int date) => _context.Lancamento.Where(x => x.ContaId == Id && x.CreationDate.Month == date).ToList();
+        //Retorna lancamentos de um itervalo de dias
+        //public static List<Lancamento> ReadByDayIntervalo(int Id, int day1, int day2) => _context.Lancamento.Where(x => x.ContaId == Id && x.CreationDate.Day > day1 && x.CreationDate.Day < day2).ToList();
+        //Retorna lancamentos de um mes e intervalo de dias.
+        //public static List<Lancamento> ReadByDate(int Id, int month, int day1, int day2) => _context.Lancamento.Where(x => x.ContaId == Id && x.CreationDate.Month == month && x.CreationDate.Day > day1 && x.CreationDate.Day < day2).ToList();
+
+        //Listar todos os lancamentos de uma conta
+        //public List<Lancamento> ListByContaName(string contaName) => _context.Lancamentos.Find(x => x.)
+
+        //Listar todos os lancamentos de uma categoria
+
 
 
         //UPDATE
-        public void Update(Lancamento x)
+        public void Update(Lancamento lancamento)
         {
 
-            _context.Lancamentos.Update(x);
+            _context.Lancamentos.Update(lancamento);
             _context.SaveChanges();
 
         }
         //DELETE
-        public void Delete(Lancamento x)
+        public void Delete(Lancamento lancamento)
         {
 
-            _context.Lancamentos.Remove(x);
+            _context.Lancamentos.Remove(lancamento);
             _context.SaveChanges();
         }
 

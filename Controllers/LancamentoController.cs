@@ -41,7 +41,7 @@ namespace FinanCWebMaster.Controllers
 
             ViewBag.Title = "Criar lançamento";
 
-            Conta conta = _ContaDAO.SearchByEmail(User.Identity.Name);
+            Conta conta = _ContaDAO.FindByEmail(User.Identity.Name);
             ViewBag.Conta = conta;
 
             //ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
@@ -69,7 +69,7 @@ namespace FinanCWebMaster.Controllers
             ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
             ViewBag.Categorias = new SelectList(_CategoriaDAO.List(), "Id", "Nome");
 
-            return View(_LancamentoDAO.findById(Id));
+            return View(_LancamentoDAO.FindById(Id));
 
         }
 
@@ -87,7 +87,7 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Delete(int Id)
         {
 
-            Lancamento lancamento = _LancamentoDAO.findById(Id);
+            Lancamento lancamento = _LancamentoDAO.FindById(Id);
 
             _LancamentoDAO.Delete(lancamento);
 

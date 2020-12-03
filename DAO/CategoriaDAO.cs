@@ -14,7 +14,7 @@ namespace FinanCWebMaster.DAO
 
         public CategoriaDAO(Context context) => _context = context;
 
-        public Categoria FindById(int id) => _context.Categorias.FirstOrDefault(x => x.Id == id);
+        public Categoria findById(int id) => _context.Categorias.FirstOrDefault(x => x.Id == id);
 
         //CREATE
         public void Create(Categoria x)
@@ -27,6 +27,12 @@ namespace FinanCWebMaster.DAO
 
         //READ
         public List<Categoria> List() => _context.Categorias.ToList();
+
+
+
+        
+        
+
 
 
         //UPDATE

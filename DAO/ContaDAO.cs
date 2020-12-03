@@ -11,63 +11,44 @@ namespace FinanCWebMaster.DAO
 
         //DAO = Data Access Object
 
-        //Database context
         private readonly Context _context;
 
         public ContaDAO(Context context) => _context = context;
 
-
-
-        //Validations
-
-        //FirstOrDefault => Return the first element of an sequence    (Lambda)
-        public Conta SearchForName(string name) => _context.Contas.FirstOrDefault(x => x.FirstName == name);
-        public Conta SearchForCpf(string cpf) => _context.Contas.FirstOrDefault(x => x.Cpf == cpf);
-
-        public Conta SearchByEmail(string email) => _context.Contas.FirstOrDefault(x => x.Email == email);
-
-
-        //CRUD OPERATIONS
-
-
         //CREATE
-        public bool Create(Conta x)
+        public bool Create(Conta conta)
         {
 
-            if(SearchForCpf(x.Cpf) == null)
-            {
+            _context.Contas.Add(conta);
+            _context.SaveChanges();
 
-                _context.Contas.Add(x);
-                _context.SaveChanges();
-
-                return true;
-
-            }
-           
-            return false;
+            return true;
 
         }
 
-        //LIST ALL
+        //READ
         public List<Conta> List() => _context.Contas.ToList();
 
         //LIST BY ID
         public Conta ListById(int Id) => _context.Contas.Find(Id);
+        public Conta FindByFirstName(string name) => _context.Contas.FirstOrDefault(conta => conta.FirstName == name);
+        public Conta FindByCpf(string cpf) => _context.Contas.FirstOrDefault(conta => conta.Cpf == cpf);
+        public Conta FindByEmail(string email) => _context.Contas.FirstOrDefault(conta => conta.Email == email);
 
         //UPDATE
-        public void Update(Conta x)
+        public void Update(Conta conta)
         {
 
-            _context.Contas.Update(x);
+            _context.Contas.Update(conta);
             _context.SaveChanges();
 
         }
 
         //DELETE
-        public void Delete(Conta x)
+        public void Delete(Conta conta)
         {
 
-            _context.Contas.Remove(x);
+            _context.Contas.Remove(conta);
             _context.SaveChanges();
 
         }
