@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using FinanCWebMaster.DAO;
 using FinanCWebMaster.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace FinanCWebMaster.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+        SignInManager<ContaAuth> SignInManager;
+        UserManager<ContaAuth> UserManager;
+
         private readonly CategoriaDAO _CategoriaDAO;
 
         public HomeController(CategoriaDAO categoriaDAO) => _CategoriaDAO = categoriaDAO;
@@ -43,6 +49,9 @@ namespace FinanCWebMaster.Controllers
             }
 
             Console.WriteLine(valorTotal);
+
+
+            
 
             //List<Categoria> => JSON
             //Newsonsoft.Json

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanCWebMaster.DAO;
 using FinanCWebMaster.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FinanCWebMaster.Controllers
-{
+{   
+
     public class LancamentoController : Controller
     {
 
@@ -24,6 +26,7 @@ namespace FinanCWebMaster.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
 

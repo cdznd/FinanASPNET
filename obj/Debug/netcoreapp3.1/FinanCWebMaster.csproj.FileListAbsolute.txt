@@ -164,3 +164,5 @@ C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\n
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\FinanCWebMaster.csproj.CoreCompileInputs.cache
 C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\FinanCWebMaster.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Role\Create.cshtml.g.cs
+C:\Users\FOX\Desktop\FinanCWebMaster\FinanCWebMaster\FinanCWebMaster\obj\Debug\netcoreapp3.1\Razor\Views\Role\Index.cshtml.g.cs

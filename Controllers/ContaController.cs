@@ -71,30 +71,37 @@ namespace FinanCWebMaster.Controllers
                 ContaAuth contaAuth = new ContaAuth();
                 contaAuth.UserName = conta.Email;
                 contaAuth.Email = conta.Email;
-                contaAuth.Id = conta.Id.ToString();
+                //contaAuth.Id = conta.Id.ToString();
 
                 IdentityResult result = await _userManager.CreateAsync(contaAuth, conta.Password);
+                //await _userManager.AddToRoleAsync(contaAuth, "ADM");
 
-                if (!result.Succeeded)
+                if (result.Succeeded)
                 {
 
-                    addErrors(result);
+                    await _userManager.AddToRoleAsync(contaAuth, "Admin");
 
-                    return View();
+                    PictureAdapter(conta, file);
 
-                }
+                    //Validation
+                    if (_ContaDAO.Create(conta))
+                    {
 
-                PictureAdapter(conta, file);
+                        return RedirectToAction("Index", "Conta");
 
-                //Validation
-                if (_ContaDAO.Create(conta))
-                {
+                    }
+                    else
+                    {
 
-                    return RedirectToAction("Index", "Conta");
+                        return View();
+
+                    }
 
                 }
                 else
                 {
+
+                    addErrors(result);
 
                     return View();
 

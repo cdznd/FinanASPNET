@@ -34,31 +34,63 @@
         <!-- LISTING ALL ACCOUNTS -->
         <tbody>
 
-            @foreach (Lancamento y in Model)
+            @foreach (Lancamento lancamento in Model)
             {
 
-                <tr>
+                @if (lancamento.isProfit)
+                {
 
-                    <th>@y.Id</th>
+                    <tr>
 
-                    <th>@y.Categoria.Nome</th>
+                        <th>@lancamento.Id</th>
 
-                    <th>@y.Conta.FirstName</th>
+                        <th>@lancamento.Categoria.Nome</th>
 
-                    <th>@y.Description</th>
+                        <th>@lancamento.Conta.FirstName</th>
 
-                    <th>@y.Valor</th>
+                        <th>@lancamento.Description</th>
 
-                    <th>@y.CreationDate</th>
+                        <th>@lancamento.Valor</th>
 
-                    <th>
+                        <th>@lancamento.CreationDate</th>
 
-                        <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@y.Id" class="btn btn-danger"> Delete </a>
-                        <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@y.Id" class="btn btn-info"> Update </a>
+                        <th>
 
-                    </th>
+                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Delete </a>
+                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Update </a>
 
-                </tr>
+                        </th>
+
+                    </tr>
+
+                }
+                else
+                {
+
+                    <tr class="bg-danger">
+
+                        <th>@lancamento.Id</th>
+
+                        <th>@lancamento.Categoria.Nome</th>
+
+                        <th>@lancamento.Conta.FirstName</th>
+
+                        <th>@lancamento.Description</th>
+
+                        <th>@lancamento.Valor</th>
+
+                        <th>@lancamento.CreationDate</th>
+
+                        <th>
+
+                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Delete </a>
+                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Update </a>
+
+                        </th>
+
+                    </tr>
+
+                }
 
             }
 
