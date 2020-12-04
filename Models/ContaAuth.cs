@@ -11,7 +11,7 @@ namespace FinanCWebMaster.Models
 
     public class ContaAuth : IdentityUser
     {
-
+        
         public ContaAuth() => CreationDate = DateTime.Now;
 
         public DateTime CreationDate { get; set; }

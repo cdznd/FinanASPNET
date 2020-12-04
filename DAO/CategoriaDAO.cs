@@ -9,7 +9,6 @@ namespace FinanCWebMaster.DAO
     {
 
         //DAO = DATA ACCESS OBJECT
-
         private readonly Context _context;
 
         public CategoriaDAO(Context context) => _context = context;
@@ -27,13 +26,6 @@ namespace FinanCWebMaster.DAO
 
         //READ
         public List<Categoria> List() => _context.Categorias.ToList();
-
-
-
-        
-        
-
-
 
         //UPDATE
         public void Update(Categoria x)

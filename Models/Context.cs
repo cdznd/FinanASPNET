@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace FinanCWebMaster.Models
         public DbSet<Categoria> Categorias { get; set; }
         
         public DbSet<Lancamento> Lancamentos { get; set; }
+
+        //?
+        //public UserManager<ContaAuth> UserManager { get; set; }
 
         //If something doesn't work in relation check for LazyLoading() propertie => optionsBuilder.UseLazyLoadingProxies();
 

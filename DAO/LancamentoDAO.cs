@@ -32,6 +32,15 @@ namespace FinanCWebMaster.DAO
 
         public List<Lancamento> ListByMonth(int date) => _context.Lancamentos.Where(lancamento => lancamento.CreationDate.Month == date).ToList();
 
+
+        //Authenticated User Methods
+
+        //public List<Lancamento> authList(int contaId) => _context.Lancamentos.Where(lancamento => lancamento.ContaId == contaId).ToList();
+
+        //public Lancamento authFindById(int contaId, int lancamentoId) => _context.Lancamentos.FirstOrDefault(lancamento => lancamento.Id == lancamentoId && lancamento.ContaId == contaId);
+
+        //public List<Lancamento> authListByMonth(int contaId, int date) => _context.Lancamentos.Where(lancamento => lancamento.CreationDate.Month == date && lancamento.ContaId == contaId).ToList();
+
         //Fixed
         //Retorna os lançamentos de um determinado mes
         //public static List<Lancamento> ListByMonth(int Id, int date) => _context.Lancamento.Where(x => x.ContaId == Id && x.CreationDate.Month == date).ToList();

@@ -6,54 +6,40 @@
 
 }
 
-<h1>Welcome</h1>
+    <div class="container">
 
+        <h1>Welcome</h1>
 
-<a id="sla" href="#">cleck here</a>
+        <div class="row">
 
-<div class="row">
+            <div class="col-md-12">
 
-    <div class="col-md-4">
+                <h2> Grafico gasto por mes </h2>
 
-        <h2> Grafico gasto por mes </h2>
+                <canvas id="LineChart" width="500" height="100"></canvas>
 
-        <canvas id="LineChart" width="500" height="500"></canvas>
+            </div>
 
-    </div>
+            <div class="col-md-8">
 
-    <div class="col-md-4">
+                <h2> Grafico gasto por categoria </h2>
 
-        <h2> Grafico gasto por categoria </h2>
+                <canvas id="CategoryChart" width="500" height="500"></canvas>
 
-        <canvas id="CategoryChart" width="500" height="500"></canvas>
+            </div>
 
-    </div>
+            <div class="col-md-4">
 
-    <div class="col-md-4">
+                <h2> Grafico gasto por categoria </h2>
 
-        <h2> Grafico gasto por categoria </h2>
+                <canvas id="CategoryPieChart" width="500" height="500"></canvas>
 
-        <canvas id="CategoryDoughnutChart" width="500" height="500"></canvas>
+            </div>
 
-    </div>
-
-    <div class="col-md-4">
-
-        <h2> Grafico gasto por categoria </h2>
-
-        <canvas id="CategoryPieChart" width="500" height="500"></canvas>
+        </div>
 
     </div>
 
-    <div class="col-md-4">
-
-        <h2> Grafico gasto por categoria </h2>
-
-        <canvas id="CategoryPolarAreaChart" width="500" height="500"></canvas>
-
-    </div>
-
-</div>
 
 <button class="btn bnt-success" id="buttonX">Click here to use a web service</button>
 
@@ -65,7 +51,7 @@
 
     //MyAPIs
     var categoriaListUrl = "https://localhost:44356/api/Categoria/List";
-    var lancamentoListUrl = "https://localhost:44356/api/Lancamento/List";
+    //var lancamentoListUrl = "https://localhost:44356/api/Lancamento/List";
 
     var lancamentosCategoriaByIdUrl = "https://localhost:44356/api/Categoria/Search/{id}/Lancamentos"
 
@@ -125,9 +111,9 @@
 
         }
 
-        createPolarAreaChart(CategoriaNames, CategoriaValues)
+        //createPolarAreaChart(CategoriaNames, CategoriaValues)
         createPieChart(CategoriaNames, CategoriaValues)
-        createDoughnutChart(CategoriaNames, CategoriaValues)
+        //createDoughnutChart(CategoriaNames, CategoriaValues)
         createChart(CategoriaNames, CategoriaValues)
         createLineChart(Months, MonthValue)
 
@@ -176,9 +162,10 @@
 
     }
 
+    /*
     function createPolarAreaChart(CategoriaNomes, ValorTotalCategoria) {
 
-        var ctx = document.getElementById('CategoryPolarAreaChart').getContext('2d');
+        //var ctx = document.getElementById('CategoryPolarAreaChart').getContext('2d');
 
         new Chart(ctx, {
             type: 'polarArea',
@@ -217,6 +204,7 @@
         });
 
     }
+    */
 
     function createPieChart(CategoriaNomes, ValorTotalCategoria) {
 
@@ -261,9 +249,10 @@
 
     }
 
+    /*
     function createDoughnutChart(CategoriaNomes, ValorTotalCategoria) {
 
-        var ctx = document.getElementById('CategoryDoughnutChart').getContext('2d');
+        //var ctx = document.getElementById('CategoryDoughnutChart').getContext('2d');
 
         var myDoughnutChart = new Chart(ctx, {
             type: 'doughnut',
@@ -304,6 +293,7 @@
         });
 
     }
+    */
 
     function createChart(CategoriaNomes,ValorTotalCategoria) {
 
@@ -367,7 +357,7 @@
 
 
 
-
+    /*
     function CurrencyConvert() {
 
         fetch(url, { method: "GET" })
@@ -397,5 +387,6 @@
             }
 
     }
+    */
 
 </script>

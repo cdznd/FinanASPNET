@@ -71,6 +71,7 @@ namespace FinanCWebMaster.Controllers
                 ContaAuth contaAuth = new ContaAuth();
                 contaAuth.UserName = conta.Email;
                 contaAuth.Email = conta.Email;
+                contaAuth.Id = conta.Id.ToString();
 
                 IdentityResult result = await _userManager.CreateAsync(contaAuth, conta.Password);
 

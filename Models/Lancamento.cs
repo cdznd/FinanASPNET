@@ -25,6 +25,9 @@ namespace FinanCWebMaster.Models
         [DataType(DataType.Text)]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "O lançamento deve ser um ganho ou uma despesa!")]
+        public bool isProfit { get; set; }
+
         //TODO
         public override String ToString() => $" Id:{ this.Id } | Titular da conta:{ Conta.FirstName } | Sobrenome do Titular da conta:{ Conta.SecondName } | Categoria:{ Categoria.Nome } | Valor:{ this.Valor } | Data de criação:{ this.CreationDate } ";
 

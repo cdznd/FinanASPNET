@@ -55,6 +55,13 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Create(Lancamento lancamento)
         {
 
+            if (!lancamento.isProfit)
+            {
+
+                lancamento.Valor *= -1;
+
+            }
+
             _LancamentoDAO.Create(lancamento);
             return RedirectToAction("Index","Lancamento");
 
