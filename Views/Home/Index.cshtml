@@ -70,7 +70,7 @@
 
                     var categoriaId = categoria.id
                     var categoriaName = categoria.nome
-                    var url = `https://localhost:44356/api/Categoria/Search/${categoriaId}/LancamentosValueById`
+                    var url = `https://localhost:44356/api/Categoria/Search/${categoriaId}/ListLancamentosValueByConta`
 
                     fetch(url, { method: "GET" })
                         .then(response => response.json())

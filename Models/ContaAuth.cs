@@ -14,6 +14,8 @@ namespace FinanCWebMaster.Models
         
         public ContaAuth() => CreationDate = DateTime.Now;
 
+        //public int ContaId { get; set; }
+
         public DateTime CreationDate { get; set; }
 
     }

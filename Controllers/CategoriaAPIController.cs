@@ -80,13 +80,15 @@ namespace FinanCWebMaster.Controllers
         }
 
         [HttpGet]
-        [Route("Search/{id}/LancamentosValueById")]
-        public IActionResult ListLancamentosValue(int id)
+        [Route("Search/{id}/ListLancamentosValueByConta")]
+        public IActionResult ListLancamentosValueByConta(int id)
         {
 
             List<Categoria> categorias = _CategoriaDAO.List();
 
-            double valorTotal = 0.0; 
+            double valorTotal = 0.0;
+
+            String ContaUserName = User.Identity.Name;
 
             foreach (Categoria categoria in categorias)
             {
@@ -97,7 +99,12 @@ namespace FinanCWebMaster.Controllers
                     foreach (Lancamento lancamento in categoria.Lancamentos)
                     {
 
-                        valorTotal += lancamento.Valor;
+                        if(lancamento.Conta.Email == ContaUserName)
+                        {
+
+                            valorTotal += lancamento.Valor;
+
+                        }
 
                     }
 

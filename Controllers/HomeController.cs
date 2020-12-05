@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinanCWebMaster.Controllers
 {
@@ -19,7 +20,8 @@ namespace FinanCWebMaster.Controllers
         private readonly CategoriaDAO _CategoriaDAO;
 
         public HomeController(CategoriaDAO categoriaDAO) => _CategoriaDAO = categoriaDAO;
-
+        
+        [Authorize(Roles = "Admin,Usr")]
         public IActionResult Index()
         {
 
@@ -49,34 +51,6 @@ namespace FinanCWebMaster.Controllers
             }
 
             Console.WriteLine(valorTotal);
-
-
-            
-
-            //List<Categoria> => JSON
-            //Newsonsoft.Json
-
-            /*
-            var y = JsonConvert.SerializeObject(lancamentos, Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-                    //PreserveReferencesHandling = PreserveReferencesHandling.Objects
-
-                });
-
-            var x = JsonConvert.SerializeObject(categorias, Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-                    //PreserveReferencesHandling = PreserveReferencesHandling.Objects
-
-                });
-
-            */
-
 
             ViewBag.Title = "Home";
             return View();

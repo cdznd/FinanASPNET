@@ -8,6 +8,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinanCWebMaster.Controllers
 {
@@ -34,17 +36,26 @@ namespace FinanCWebMaster.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,Usr")]
         public IActionResult ContaInfo()
         {
 
-            string username = User.Identity.Name;
+            //var currentUserId = _userManager.GetUserId(User);
+            //var currentUser = _userManager.FindByIdAsync(currentUserId);
 
-            Conta profile = _ContaDAO.FindByEmail(username);
+            //int currentUserContaId = currentUser.Result.ContaId;
+
+            //Conta profile = _ContaDAO.FindById(currentUserContaId);
+
+            var currentUsername = User.Identity.Name;
+
+            Conta profile = _ContaDAO.FindByEmail(currentUsername);
 
             return View(profile);
 
         }
 
+        [Authorize(Roles = "Admin,Usr")]
         public IActionResult Index()
         {
 
@@ -71,6 +82,7 @@ namespace FinanCWebMaster.Controllers
                 ContaAuth contaAuth = new ContaAuth();
                 contaAuth.UserName = conta.Email;
                 contaAuth.Email = conta.Email;
+                //contaAuth.ContaId = conta.Id;
                 //contaAuth.Id = conta.Id.ToString();
 
                 IdentityResult result = await _userManager.CreateAsync(contaAuth, conta.Password);
@@ -79,7 +91,7 @@ namespace FinanCWebMaster.Controllers
                 if (result.Succeeded)
                 {
 
-                    await _userManager.AddToRoleAsync(contaAuth, "Admin");
+                    await _userManager.AddToRoleAsync(contaAuth, "Usr");
 
                     PictureAdapter(conta, file);
 
@@ -137,7 +149,7 @@ namespace FinanCWebMaster.Controllers
             //LIST BY ID
             //ViewBag.Conta = _ContaDAO.ListById(id);
 
-            return View(_ContaDAO.ListById(id));
+            return View(_ContaDAO.FindById(id));
 
         }
 
@@ -156,7 +168,7 @@ namespace FinanCWebMaster.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-            Conta conta = _ContaDAO.ListById(id);
+            Conta conta = _ContaDAO.FindById(id);
 
             //DELETE
             _ContaDAO.Delete(conta);

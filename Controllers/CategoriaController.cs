@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanCWebMaster.DAO;
 using FinanCWebMaster.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanCWebMaster.Controllers
@@ -15,6 +16,7 @@ namespace FinanCWebMaster.Controllers
 
         public CategoriaController(CategoriaDAO categoriaDAO) => _CategoriaDAO = categoriaDAO;
 
+        [Authorize(Roles = "Admin,Usr")]
         public IActionResult Index()
         {
             

@@ -26,7 +26,7 @@ namespace FinanCWebMaster.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Usr")]
         public IActionResult Index()
         {
 

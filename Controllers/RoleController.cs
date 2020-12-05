@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinanCWebMaster.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace FinanCWebMaster.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
 

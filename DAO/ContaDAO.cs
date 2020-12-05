@@ -30,7 +30,7 @@ namespace FinanCWebMaster.DAO
         public List<Conta> List() => _context.Contas.ToList();
 
         //LIST BY ID
-        public Conta ListById(int Id) => _context.Contas.Find(Id);
+        public Conta FindById(int Id) => _context.Contas.Find(Id);
         public Conta FindByFirstName(string name) => _context.Contas.FirstOrDefault(conta => conta.FirstName == name);
         public Conta FindByCpf(string cpf) => _context.Contas.FirstOrDefault(conta => conta.Cpf == cpf);
         public Conta FindByEmail(string email) => _context.Contas.FirstOrDefault(conta => conta.Email == email);
