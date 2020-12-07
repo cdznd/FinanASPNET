@@ -13,7 +13,7 @@
 
         <div class="col-md-4">
 
-            <img src="~/images/@Model.Image" style="max-height:300px"/>
+            <img src="~/images/@Model.Image" style="max-height:300px" />
 
         </div>
 
@@ -22,6 +22,13 @@
             <h2> Nome: @Model.FirstName @Model.SecondName.</h2>
             <p> CPF: @Model.Cpf </p>
             <p> Email: @Model.Email</p>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <a asp-action="Delete" asp-controller="Conta" asp-route-id="@Model.Id" class="btn btn-danger"> Delete </a>
+            <a asp-action="Update" asp-controller="Conta" asp-route-id="@Model.Id" class="btn btn-info"> Update </a>
 
         </div>
 

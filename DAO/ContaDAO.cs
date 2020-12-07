@@ -10,7 +10,6 @@ namespace FinanCWebMaster.DAO
     {
 
         //DAO = Data Access Object
-
         private readonly Context _context;
 
         public ContaDAO(Context context) => _context = context;
@@ -36,20 +35,26 @@ namespace FinanCWebMaster.DAO
         public Conta FindByEmail(string email) => _context.Contas.FirstOrDefault(conta => conta.Email == email);
 
         //UPDATE
-        public void Update(Conta conta)
+        public bool Update(Conta conta)
         {
+
+
 
             _context.Contas.Update(conta);
             _context.SaveChanges();
 
+            return true;
+
         }
 
         //DELETE
-        public void Delete(Conta conta)
+        public bool Delete(Conta conta)
         {
 
             _context.Contas.Remove(conta);
             _context.SaveChanges();
+
+            return true;
 
         }
 

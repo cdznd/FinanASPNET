@@ -39,17 +39,23 @@ namespace FinanCWebMaster.Controllers
         [Authorize(Roles = "Admin,Usr")]
         public IActionResult ContaInfo()
         {
-
-            //var currentUserId = _userManager.GetUserId(User);
-            //var currentUser = _userManager.FindByIdAsync(currentUserId);
-
-            //int currentUserContaId = currentUser.Result.ContaId;
-
-            //Conta profile = _ContaDAO.FindById(currentUserContaId);
-
+            
             var currentUsername = User.Identity.Name;
 
             Conta profile = _ContaDAO.FindByEmail(currentUsername);
+
+            ViewBag.Title = profile.FirstName + " " + profile.SecondName + " - Minha Conta";
+
+            return View(profile);
+
+        }
+
+        public IActionResult OtherContaInfo(int id)
+        {
+
+            Conta profile = _ContaDAO.FindById(id);
+
+            ViewBag.Title = profile.FirstName + " " + profile.SecondName + " - Conta";
 
             return View(profile);
 
@@ -59,16 +65,23 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Index()
         {
 
-            List<Conta> Contas = _ContaDAO.List();
-
             ViewBag.Title = "Contas";
+
+            List<Conta> Contas = _ContaDAO.List();
 
             return View(Contas);
 
         }
 
         //CREATE VIEW
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+
+            ViewBag.Title = "Criar Conta";
+
+            return View();
+
+        }
 
         //CREATE
         [HttpPost]
@@ -142,38 +155,65 @@ namespace FinanCWebMaster.Controllers
         }
 
         //UPDATE VIEW
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
 
-            //Is possible to use Viewbags too
-            //LIST BY ID
-            //ViewBag.Conta = _ContaDAO.ListById(id);
+            ViewBag.Title = "Atualizar conta";
 
-            return View(_ContaDAO.FindById(id));
+            Conta conta = _ContaDAO.FindById(id);
+
+            return View(conta);
 
         }
 
         //UPDATE
         [HttpPost]
-        public async Task<IActionResult> Update(Conta conta)
+        public async Task<IActionResult> Update(Conta conta, IFormFile file)
         {
 
-            //UPDATE
-            _ContaDAO.Update(conta);
+            //ContaAuth contaAuth = new ContaAuth();
+            //contaAuth.Email = conta.Email;
+            //contaAuth.UserName = conta.Email;
+            string userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
 
-            return RedirectToAction("Index", "Conta");
+            user.Email = conta.Email;
+            user.UserName = conta.Email;
+
+            IdentityResult result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+
+                PictureAdapter(conta, file);
+
+                _ContaDAO.Update(conta);
+
+            }
+
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
 
         }
 
+        //DELETE
         public async Task<IActionResult> Delete(int id)
         {
 
             Conta conta = _ContaDAO.FindById(id);
 
-            //DELETE
             _ContaDAO.Delete(conta);
 
-            return RedirectToAction("Index", "Conta");
+            //Delete user
+            string userId = _userManager.GetUserId(User);
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            await _userManager.DeleteAsync(user);
+
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
 
         }
 

@@ -2,18 +2,17 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+
 }
 
-
 @model Conta
-
 
 <div class="container">
 
     <h1 class="display-3">Atualizar conta</h1>
 
     <!-- REGISTER FORM -->
-    <form asp-controller="Conta" asp-action="Update" method="post">
+    <form asp-controller="Conta" asp-action="Update" method="post" enctype="multipart/form-data">
 
         <fieldset>
 
@@ -51,6 +50,10 @@
 
             <hr />
 
+        </fieldset>
+
+        <fieldset>
+
             <!-- ACCOUNT INFO -->
             <!-- EMAIL -->
             <div class="form-group">
@@ -58,13 +61,35 @@
                 <label asp-for="Email"> Email </label>
                 <input asp-for="Email" type="email" placeholder="Email" class="form-control" />
 
+                <span asp-validation-for="Email" class="text-danger"></span>
+
             </div>
 
             <!-- PASSWORD -->
             <div class="form-group">
 
                 <label asp-for="Password"> Password </label>
-                <input asp-for="Password" type="password" placeholder="Password" class="form-control" />
+                <input asp-for="Password" type="password" placeholder="Password" class="form-control"/>
+
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+
+            <!-- PASSWORD VALIDATION -->
+            <div class="form-group">
+
+                <label asp-for="PasswordValidation"> Password Repeat </label>
+                <input asp-for="PasswordValidation" type="password" placeholder="Password" class="form-control" />
+
+                <span asp-validation-for="PasswordValidation" class="text-danger"></span>
+
+            </div>
+
+            <!-- PHOTO / FILE -->
+            <div class="form-group">
+
+                <label asp-for="Image"> Foto </label>
+                <input asp-for="Image" type="file" name="file" class="form-control-file" />
 
             </div>
 

@@ -11,9 +11,7 @@
 
         <h1> - Contas - </h1>
 
-        <hr />
-
-        <a asp-action="Create" asp-controller="Conta" class="btn btn-primary">Click here to register a new account</a>
+        <hr/>
 
         <div class="row">
 
@@ -24,24 +22,18 @@
 
                     <div class="card">
 
-                        <img class="card-img-top" src="~/images/@conta.Image" alt="@conta.FirstName" />
+                        <img class="card-img-top" src="~/images/@conta.Image" alt="@conta.FirstName" style="max-height:150px;width:100%"/>
 
                         <div class="card-body">
 
                             <h5 class="card-title">@conta.FirstName @conta.SecondName</h5>
-                            <h6 class="card-text">Id:@conta.Id</h6>
-                            <p class="card-text">CPF:@conta.Cpf</p>
                             <p class="card-text">Email:@conta.Email</p>
-                            <p class="card-text">Data de criação:@conta.CreationDate</p>
-                            <hr />
-                            <p class="card-text">Numero de lancamentos = @conta.Lancamentos.Count</p>
 
                         </div>
 
                         <div class="card-footer">
 
-                            <a asp-action="Delete" asp-controller="Conta" asp-route-id="@conta.Id" class="btn btn-danger"> Delete </a>
-                            <a asp-action="Update" asp-controller="Conta" asp-route-id="@conta.Id" class="btn btn-info"> Update </a>
+                            <a asp-action="OtherContaInfo" asp-controller="Conta" asp-route-id="@conta.Id" class="btn btn-info"> View </a>
 
                         </div>
 

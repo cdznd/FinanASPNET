@@ -94,5 +94,46 @@ namespace FinanCWebMaster.Controllers
 
         }
 
+        [HttpGet]
+        [Route("Search/Despesas")]
+        public IActionResult SearchDespesas()
+        {
+
+            String ContaUserName = User.Identity.Name;
+
+            List<Lancamento> lancamentos = _LancamentoDAO.authListDespesas(ContaUserName);
+
+            if(lancamentos != null)
+            {
+
+                return Ok(lancamentos);
+
+            }
+
+            return BadRequest(new { msg = "Lancamento não encontrado!" });
+
+        }
+
+        [HttpGet]
+        [Route("Search/Lucro")]
+        public IActionResult SearchLucro()
+        {
+
+            String ContaUserName = User.Identity.Name;
+
+            List<Lancamento> lancamentos = _LancamentoDAO.authListLucro(ContaUserName);
+
+            if (lancamentos != null)
+            {
+
+                return Ok(lancamentos);
+
+            }
+
+            return BadRequest(new { msg = "Lancamento não encontrado!" });
+
+        }
+
     }
+
 }

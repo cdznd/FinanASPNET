@@ -20,10 +20,9 @@
 
                 <th scope="col"> ID </th>
                 <th scope="col"> Nome da categoria </th>
-                <th scope="col"> Conta </th>
                 <th scope="col"> Descricao </th>
                 <th scope="col"> Valor </th>
-                <th scope="col"> Creation date </th>
+                <th scope="col"> Criado em </th>
 
                 <th scope="col"></th>
 
@@ -40,13 +39,11 @@
                 @if (lancamento.isProfit)
                 {
 
-                    <tr>
+                    <tr class="bg-success">
 
                         <th>@lancamento.Id</th>
 
                         <th>@lancamento.Categoria.Nome</th>
-
-                        <th>@lancamento.Conta.FirstName</th>
 
                         <th>@lancamento.Description</th>
 
@@ -56,8 +53,8 @@
 
                         <th>
 
-                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Delete </a>
-                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Update </a>
+                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Excluir </a>
+                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Editar </a>
 
                         </th>
 
@@ -73,8 +70,6 @@
 
                         <th>@lancamento.Categoria.Nome</th>
 
-                        <th>@lancamento.Conta.FirstName</th>
-
                         <th>@lancamento.Description</th>
 
                         <th>@lancamento.Valor</th>
@@ -83,8 +78,8 @@
 
                         <th>
 
-                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Delete </a>
-                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Update </a>
+                            <a asp-action="Delete" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-danger"> Excluir </a>
+                            <a asp-action="Update" asp-controller="Lancamento" asp-route-id="@lancamento.Id" class="btn btn-info"> Editar </a>
 
                         </th>
 

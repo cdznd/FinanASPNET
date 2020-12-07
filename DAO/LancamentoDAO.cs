@@ -19,6 +19,19 @@ namespace FinanCWebMaster.DAO
         public void Create(Lancamento lancamento)
         {
 
+            if (!lancamento.isProfit)
+            {
+
+                lancamento.Valor = -lancamento.Valor;
+
+            }
+            else
+            {
+
+                lancamento.Valor *= -1;
+
+            }
+
             _context.Lancamentos.Add(lancamento);
             _context.SaveChanges();
 
@@ -41,6 +54,10 @@ namespace FinanCWebMaster.DAO
 
         public List<Lancamento> authListByMonth(string contaUsername, int date) => _context.Lancamentos.Where(lancamento => lancamento.CreationDate.Month == date && lancamento.Conta.Email == contaUsername).ToList();
 
+        public List<Lancamento> authListDespesas(string contaUsername) => _context.Lancamentos.Where(lancamento => lancamento.isProfit == false && lancamento.Conta.Email == contaUsername).ToList();
+
+        public List<Lancamento> authListLucro(string contaUsername) => _context.Lancamentos.Where(lancamento => lancamento.isProfit == true && lancamento.Conta.Email == contaUsername).ToList();
+
         //Fixed
         //Retorna os lançamentos de um determinado mes
         //public static List<Lancamento> ListByMonth(int Id, int date) => _context.Lancamento.Where(x => x.ContaId == Id && x.CreationDate.Month == date).ToList();
@@ -59,6 +76,24 @@ namespace FinanCWebMaster.DAO
         //UPDATE
         public void Update(Lancamento lancamento)
         {
+
+            if (!lancamento.isProfit)
+            {
+
+                if(lancamento.Valor > 0)
+                {
+
+                    lancamento.Valor = -lancamento.Valor;
+
+                }
+
+            }
+            else
+            {
+
+                lancamento.Valor = Math.Abs(lancamento.Valor);
+
+            }
 
             _context.Lancamentos.Update(lancamento);
             _context.SaveChanges();

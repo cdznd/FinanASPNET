@@ -1,7 +1,6 @@
 ﻿@{
 
-    List<Conta> Contas = ViewBag.Contas;
-    List<Categoria> Categorias = ViewBag.Categorias;
+    Conta conta = ViewBag.Conta;
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -29,16 +28,13 @@
                 <label asp-for="ContaId">Conta</label>
 
                 <!-- SELECT CONTA -->
-                <select asp-for="ContaId" class="form-control">
+                <select class="form-control" disabled>
 
-                    @foreach (Conta x in Contas)
-                    {
-
-                        <option value="@x.Id"> @x.FirstName </option>
-
-                    }
+                    <option>@conta.FirstName</option>
 
                 </select>
+
+                <input asp-for="ContaId" value="@conta.Id" style="display:none" />
 
             </div>
 
@@ -47,14 +43,9 @@
 
                 <label asp-for="CategoriaId">Categoria</label>
 
-                <select asp-for="CategoriaId" class="form-control">
+                <select asp-items="@ViewBag.Categorias" asp-for="CategoriaId" class="form-control">
 
-                    @foreach (Categoria x in Categorias)
-                    {
-
-                        <option value="@x.Id"> @x.Nome </option>
-
-                    }
+                    <option> - - SELECIONAR - - </option>
 
                 </select>
 
@@ -73,14 +64,36 @@
             <div class="form-group">
 
                 <label asp-for="Valor"> Valor </label>
-                <input asp-for="Valor" type="text" placeholder="Valor" class="form-control" />
+                <input asp-for="Valor" placeholder="$1,000,000.00" class="form-control" />
 
             </div>
 
-            <span asp-validation-for="Description"></span>
+            <div class="form-group">
+
+                <div class="form-check">
+
+                    @Html.RadioButtonFor(Lancamento => Lancamento.isProfit, true)
+                    <label class="form-check-label" for="exampleRadios1">
+                        Ganho
+                    </label>
+
+                </div>
+
+                <div class="form-check">
+
+                    @Html.RadioButtonFor(Lancamento => Lancamento.isProfit, false)
+                    <label class="form-check-label" for="exampleRadios2">
+                        Despesa
+                    </label>
+
+                </div>
+
+            </div>
+
+            <span asp-validation-for="Description" class="text-danger"></span>
 
             <!-- SUBMIT -->
-            <input type="submit" value="Atualizar lancamento" class="btn btn-primary" />
+            <input type="submit" value="Cadastrar lancamento" class="btn btn-primary" />
 
         </fieldset>
 

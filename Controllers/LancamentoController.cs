@@ -32,7 +32,9 @@ namespace FinanCWebMaster.Controllers
 
             ViewBag.Title = "Lancamentos";
 
-            List<Lancamento> lancamentos = _LancamentoDAO.List();
+            string userName = User.Identity.Name;
+
+            List<Lancamento> lancamentos = _LancamentoDAO.authList(userName);
 
             return View(lancamentos);
 
@@ -58,13 +60,6 @@ namespace FinanCWebMaster.Controllers
         public IActionResult Create(Lancamento lancamento)
         {
 
-            if (!lancamento.isProfit)
-            {
-
-                lancamento.Valor *= -1;
-
-            }
-
             _LancamentoDAO.Create(lancamento);
             return RedirectToAction("Index","Lancamento");
 
@@ -76,10 +71,16 @@ namespace FinanCWebMaster.Controllers
 
             ViewBag.Title = "Atualizar lançamento";
 
-            ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
+            //ViewBag.Contas = new SelectList(_ContaDAO.List(), "Id", "FirstName");
             ViewBag.Categorias = new SelectList(_CategoriaDAO.List(), "Id", "Nome");
 
-            return View(_LancamentoDAO.FindById(Id));
+            string userName = User.Identity.Name;
+
+            Lancamento lancamento = _LancamentoDAO.authFindById(userName,Id);
+
+            ViewBag.Conta = lancamento.Conta;
+
+            return View(lancamento);
 
         }
 

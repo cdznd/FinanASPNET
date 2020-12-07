@@ -18,39 +18,18 @@ namespace FinanCWebMaster.Controllers
         UserManager<ContaAuth> UserManager;
 
         private readonly CategoriaDAO _CategoriaDAO;
+        private readonly LancamentoDAO _LancamentoDAO;
 
-        public HomeController(CategoriaDAO categoriaDAO) => _CategoriaDAO = categoriaDAO;
+        public HomeController(CategoriaDAO categoriaDAO, LancamentoDAO lancamentoDAO) {
+            
+            _LancamentoDAO = lancamentoDAO;
+            _CategoriaDAO = categoriaDAO;
+
+        }
         
         [Authorize(Roles = "Admin,Usr")]
         public IActionResult Index()
         {
-
-            List<Categoria> categorias = _CategoriaDAO.List();
-            List<String> CategoriasName = new List<String>();
-
-            List<Lancamento> lancamentos = new List<Lancamento>();
-
-            //double valorTotal;
-            double valorTotal = 0;
-
-            foreach (Categoria categoria in categorias)
-            {
-
-                if (categoria.Id == 5)
-                {
-
-                    foreach (Lancamento lancamento in categoria.Lancamentos)
-                    {
-
-                        valorTotal += lancamento.Valor;
-
-                    }
-
-                }
-
-            }
-
-            Console.WriteLine(valorTotal);
 
             ViewBag.Title = "Home";
             return View();

@@ -44,15 +44,6 @@ namespace FinanCWebMaster
             //FIX ONE Not work SerializarSettings do not exist for x
             //var mvc = services.AddMvc(options => { }).AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            
-
-
-
-
-
-
-
-
             //Auth
             //Add default Identity
             services.AddIdentity<ContaAuth, IdentityRole>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
@@ -86,7 +77,7 @@ namespace FinanCWebMaster
                 app.UseHsts();
             
             }
-            
+
             //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
